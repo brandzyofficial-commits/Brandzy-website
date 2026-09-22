@@ -1,0 +1,269 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Brandzy — Creator Media Kit</title>
+<meta name="description" content="View a creator's Brandzy media kit — audience stats, rate card, and a direct line to pitch a collaboration." />
+<link rel="icon" type="image/png" href="assets/favicon.png" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0b0b0f; --surface:#17171f; --surface-2:#1e1e28; --border:#2a2a36;
+    --text:#f4f4f6; --text-dim:#a3a3b2; --text-faint:#6b6b7c;
+    --violet:#7c5cff; --violet-2:#a78bfa; --coral:#ff6b6b; --mint:#4ade80; --gold:#fbbf24;
+    --radius:20px;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  body{
+    background:var(--bg); color:var(--text);
+    font-family:'Inter', system-ui, -apple-system, sans-serif;
+    line-height:1.5; min-height:100vh;
+  }
+  .wrap{max-width:720px; margin:0 auto; padding:32px 20px 80px;}
+  a{color:var(--violet-2);}
+  .brand{display:flex; align-items:center; gap:10px; margin-bottom:28px;}
+  .brand img{width:32px; height:32px; border-radius:50%;}
+  .brand span{font-weight:800; font-size:18px;}
+
+  .card{
+    background:var(--surface); border:1px solid var(--border); border-radius:var(--radius);
+    padding:24px; margin-bottom:16px;
+  }
+  .name{font-size:26px; font-weight:800;}
+  .niche{color:var(--violet-2); font-weight:600; margin-top:4px;}
+  .tagline{color:var(--text-dim); margin-top:10px;}
+  .bio{color:var(--text-dim); margin-top:12px; font-size:14px;}
+
+  .stats-grid{display:grid; grid-template-columns:repeat(auto-fit, minmax(140px,1fr)); gap:12px; margin-top:8px;}
+  .stat{
+    background:var(--surface-2); border:1px solid var(--border); border-radius:14px; padding:14px;
+  }
+  .stat .platform{font-size:12px; color:var(--text-faint); text-transform:uppercase; letter-spacing:.04em; font-weight:700;}
+  .stat .followers{font-size:20px; font-weight:800; margin-top:4px;}
+  .stat .sub{font-size:12px; color:var(--text-dim); margin-top:2px;}
+
+  h3{font-size:14px; text-transform:uppercase; letter-spacing:.04em; color:var(--text-faint); margin-bottom:12px;}
+
+  .rate-grid{display:grid; grid-template-columns:1fr 1fr; gap:10px;}
+  .rate{background:var(--surface-2); border:1px solid var(--border); border-radius:12px; padding:12px;}
+  .rate .label{font-size:12px; color:var(--text-dim);}
+  .rate .value{font-size:17px; font-weight:800; margin-top:2px;}
+
+  .audience-row{display:flex; justify-content:space-between; padding:8px 0; border-bottom:1px solid var(--border); font-size:14px;}
+  .audience-row:last-child{border-bottom:none;}
+  .audience-row .k{color:var(--text-dim);}
+
+  form{display:flex; flex-direction:column; gap:12px;}
+  label{font-size:13px; color:var(--text-dim); margin-bottom:4px; display:block;}
+  input, textarea{
+    width:100%; background:var(--surface-2); border:1px solid var(--border); border-radius:10px;
+    color:var(--text); padding:10px 12px; font:inherit;
+  }
+  textarea{min-height:90px; resize:vertical;}
+  button{
+    background:var(--violet); color:#fff; border:none; border-radius:12px; padding:13px;
+    font-weight:700; font-size:15px; cursor:pointer;
+  }
+  button:disabled{opacity:.6; cursor:default;}
+  .msg{font-size:14px; margin-top:10px;}
+  .msg.ok{color:var(--mint);}
+  .msg.err{color:var(--coral);}
+  .footer-note{color:var(--text-faint); font-size:12px; text-align:center; margin-top:24px;}
+  .center-state{text-align:center; padding:60px 20px; color:var(--text-dim);}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="brand">
+    <span>🎬</span>
+    <span>Brandzy</span>
+  </div>
+  <div id="content"><div class="center-state">Loading media kit…</div></div>
+  <p class="footer-note">Powered by Brandzy — the deal & invoicing OS for independent creators.</p>
+</div>
+
+<script>
+// Fill these in once your Supabase project exists (same values as
+// composeApp/src/commonMain/kotlin/com/creatoros/cloud/SupabaseConfig.kt).
+const SUPABASE_URL = "https://onypzbtzzilpxhleikgd.supabase.co";
+const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9ueXB6YnR6emlscHhobGVpa2dkIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTAwODMzODYsImV4cCI6MjEwNTY1OTM4Nn0.BCmsjCa6qH7tjVMcPQx8Z-vZjFEznCmy5gMmQRWs9dI";
+
+function qs(name) {
+  return new URLSearchParams(window.location.search).get(name);
+}
+
+function fmtMoney(amount, currency) {
+  const symbols = { USD: "$", INR: "₹", EUR: "€", GBP: "£" };
+  const symbol = symbols[currency] || "$";
+  return symbol + Math.round(amount).toLocaleString();
+}
+
+function fmtCompact(n) {
+  n = Number(n) || 0;
+  if (n >= 1000000) return (n / 1000000).toFixed(1).replace(/\.0$/, "") + "M";
+  if (n >= 1000) return (n / 1000).toFixed(1).replace(/\.0$/, "") + "K";
+  return String(n);
+}
+
+async function sb(path, opts = {}) {
+  const res = await fetch(`${SUPABASE_URL}/rest/v1/${path}`, {
+    ...opts,
+    headers: {
+      apikey: SUPABASE_ANON_KEY,
+      "Content-Type": "application/json",
+      ...(opts.headers || {})
+    }
+  });
+  if (!res.ok) throw new Error(`Request failed (${res.status})`);
+  return res.status === 204 ? null : res.json();
+}
+
+function renderNotFound() {
+  document.getElementById("content").innerHTML =
+    '<div class="center-state">No creator found at this link.<br>Double-check the URL or ask them to re-share it.</div>';
+}
+
+function renderError() {
+  document.getElementById("content").innerHTML =
+    '<div class="center-state">Couldn\'t load this media kit right now. Please try again shortly.</div>';
+}
+
+function renderMediaKit(creator, stats) {
+  const platformIcon = { Instagram: "📸", YouTube: "▶️", TikTok: "🎵", "X / Twitter": "🐦", LinkedIn: "💼", Other: "🌐" };
+
+  const statsHtml = stats.length
+    ? stats.map(s => `
+        <div class="stat">
+          <div class="platform">${platformIcon[s.platform] || "🌐"} ${s.platform}</div>
+          <div class="followers">${fmtCompact(s.follower_count)} followers</div>
+          <div class="sub">${s.engagement_rate}% engagement · ${fmtCompact(s.last_30d_reach)} reach (30d)</div>
+        </div>`).join("")
+    : '<div class="sub">No platform stats added yet.</div>';
+
+  const rateCardHtml = creator.show_rate_card ? `
+    <div class="card">
+      <h3>Starting Rates</h3>
+      <div class="rate-grid">
+        ${creator.rate_card_post > 0 ? `<div class="rate"><div class="label">Post</div><div class="value">${fmtMoney(creator.rate_card_post, creator.currency)}</div></div>` : ""}
+        ${creator.rate_card_reel > 0 ? `<div class="rate"><div class="label">Reel</div><div class="value">${fmtMoney(creator.rate_card_reel, creator.currency)}</div></div>` : ""}
+        ${creator.rate_card_video > 0 ? `<div class="rate"><div class="label">Video</div><div class="value">${fmtMoney(creator.rate_card_video, creator.currency)}</div></div>` : ""}
+        ${creator.rate_card_story > 0 ? `<div class="rate"><div class="label">Story</div><div class="value">${fmtMoney(creator.rate_card_story, creator.currency)}</div></div>` : ""}
+      </div>
+    </div>` : "";
+
+  const audienceHtml = creator.show_demographics && (creator.audience_age || creator.audience_top_countries || creator.audience_gender) ? `
+    <div class="card">
+      <h3>Audience</h3>
+      ${creator.audience_age ? `<div class="audience-row"><span class="k">Age</span><span>${creator.audience_age}</span></div>` : ""}
+      ${creator.audience_gender ? `<div class="audience-row"><span class="k">Gender</span><span>${creator.audience_gender}</span></div>` : ""}
+      ${creator.audience_top_countries ? `<div class="audience-row"><span class="k">Top Countries</span><span>${creator.audience_top_countries}</span></div>` : ""}
+    </div>` : "";
+
+  const formHtml = creator.show_inquiry_form ? `
+    <div class="card">
+      <h3>Reach Out</h3>
+      <form id="inquiry-form">
+        <div>
+          <label for="brand_name">Brand / Company *</label>
+          <input id="brand_name" required />
+        </div>
+        <div>
+          <label for="contact_name">Your Name</label>
+          <input id="contact_name" />
+        </div>
+        <div>
+          <label for="contact_email">Your Email *</label>
+          <input id="contact_email" type="email" required />
+        </div>
+        <div>
+          <label for="budget_range">Budget Range</label>
+          <input id="budget_range" placeholder="e.g. $500 - $1,000" />
+        </div>
+        <div>
+          <label for="message">What did you have in mind? *</label>
+          <textarea id="message" required></textarea>
+        </div>
+        <button type="submit">Send Inquiry</button>
+        <div id="form-msg"></div>
+      </form>
+    </div>` : "";
+
+  document.getElementById("content").innerHTML = `
+    <div class="card">
+      <div class="name">${creator.name}</div>
+      ${creator.niche ? `<div class="niche">${creator.niche}</div>` : ""}
+      ${creator.pitch_tagline ? `<div class="tagline">${creator.pitch_tagline}</div>` : ""}
+      ${creator.bio ? `<div class="bio">${creator.bio}</div>` : ""}
+    </div>
+    <div class="card">
+      <h3>Reach</h3>
+      <div class="stats-grid">${statsHtml}</div>
+    </div>
+    ${rateCardHtml}
+    ${audienceHtml}
+    ${formHtml}
+  `;
+
+  const form = document.getElementById("inquiry-form");
+  if (form) {
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const btn = form.querySelector("button");
+      const msgEl = document.getElementById("form-msg");
+      btn.disabled = true;
+      msgEl.textContent = "";
+      msgEl.className = "msg";
+      try {
+        await sb("inquiries", {
+          method: "POST",
+          headers: { Prefer: "return=minimal" },
+          body: JSON.stringify({
+            creator_id: creator.id,
+            brand_name: document.getElementById("brand_name").value.trim(),
+            contact_name: document.getElementById("contact_name").value.trim(),
+            contact_email: document.getElementById("contact_email").value.trim(),
+            budget_range: document.getElementById("budget_range").value.trim(),
+            message: document.getElementById("message").value.trim()
+          })
+        });
+        form.reset();
+        msgEl.textContent = "Sent! " + creator.name + " will get an alert in the Brandzy app.";
+        msgEl.className = "msg ok";
+      } catch (err) {
+        msgEl.textContent = "Couldn't send that — please try again.";
+        msgEl.className = "msg err";
+      } finally {
+        btn.disabled = false;
+      }
+    });
+  }
+}
+
+async function main() {
+  const username = qs("u");
+  if (!username) {
+    renderNotFound();
+    return;
+  }
+  try {
+    const creators = await sb(`creators?username=eq.${encodeURIComponent(username)}&select=*`);
+    if (!creators || creators.length === 0) {
+      renderNotFound();
+      return;
+    }
+    const creator = creators[0];
+    const stats = await sb(`social_stats?creator_id=eq.${creator.id}&select=*`);
+    document.title = `${creator.name} — Brandzy Media Kit`;
+    renderMediaKit(creator, stats || []);
+  } catch (err) {
+    renderError();
+  }
+}
+
+main();
+</script>
+</body>
+</html>
