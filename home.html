@@ -1,0 +1,548 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Brandzy — Run your creator business like a business</title>
+<meta name="description" content="Brandzy is the deal and payment operating system for independent creators. Track brand deals, send invoices, and manage clients — all in one app." />
+<link rel="icon" type="image/png" href="assets/favicon.png" />
+<link rel="apple-touch-icon" href="assets/favicon.png" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #0b0b0f;
+    --bg-2: #111116;
+    --surface: #17171f;
+    --surface-2: #1e1e28;
+    --border: #2a2a36;
+    --text: #f4f4f6;
+    --text-dim: #a3a3b2;
+    --text-faint: #6b6b7c;
+    --violet: #7c5cff;
+    --violet-2: #a78bfa;
+    --coral: #ff6b6b;
+    --mint: #4ade80;
+    --gold: #fbbf24;
+    --radius: 20px;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:'Inter', system-ui, -apple-system, sans-serif;
+    line-height:1.5;
+    overflow-x:hidden;
+  }
+  a{color:inherit; text-decoration:none;}
+  img{max-width:100%;}
+  .wrap{max-width:1180px; margin:0 auto; padding:0 24px;}
+
+  /* background glow */
+  body::before{
+    content:"";
+    position:fixed; inset:0;
+    background:
+      radial-gradient(600px 500px at 15% -5%, rgba(124,92,255,0.18), transparent 60%),
+      radial-gradient(500px 400px at 95% 10%, rgba(255,107,107,0.10), transparent 60%);
+    pointer-events:none;
+    z-index:0;
+  }
+
+  /* ---------- Nav ---------- */
+  header{
+    position:sticky; top:0; z-index:50;
+    backdrop-filter:blur(14px);
+    background:rgba(11,11,15,0.72);
+    border-bottom:1px solid var(--border);
+  }
+  nav{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:16px 24px;
+    max-width:1180px; margin:0 auto;
+  }
+  .logo{
+    display:flex; align-items:center; gap:10px;
+    font-weight:800; font-size:20px; letter-spacing:-0.02em;
+  }
+  .logo-mark{
+    width:34px; height:34px;
+    display:block;
+    filter:drop-shadow(0 4px 14px rgba(124,92,255,0.45));
+  }
+  .nav-links{display:flex; gap:32px; font-size:14.5px; color:var(--text-dim); font-weight:500;}
+  .nav-links a:hover{color:var(--text);}
+  .nav-cta{display:flex; gap:12px; align-items:center;}
+  .btn{
+    display:inline-flex; align-items:center; justify-content:center; gap:8px;
+    padding:11px 22px; border-radius:999px;
+    font-weight:600; font-size:14.5px;
+    border:1px solid transparent;
+    cursor:pointer;
+    transition:transform .15s ease, box-shadow .15s ease, background .15s ease, border-color .15s ease;
+    white-space:nowrap;
+  }
+  .btn:hover{transform:translateY(-1px);}
+  .btn-primary{
+    background:linear-gradient(135deg, var(--violet), #6a45f0);
+    color:white;
+    box-shadow:0 8px 24px rgba(124,92,255,0.35);
+  }
+  .btn-primary:hover{box-shadow:0 10px 30px rgba(124,92,255,0.5);}
+  .btn-ghost{
+    background:transparent; color:var(--text); border-color:var(--border);
+  }
+  .btn-ghost:hover{background:var(--surface); border-color:#3a3a4a;}
+  .menu-toggle{display:none; background:none; border:none; color:var(--text); font-size:22px; cursor:pointer;}
+
+  /* ---------- Hero ---------- */
+  .hero{
+    position:relative; z-index:1;
+    padding:96px 24px 60px;
+    text-align:center;
+  }
+  .eyebrow{
+    display:inline-flex; align-items:center; gap:8px;
+    padding:7px 16px; border-radius:999px;
+    background:var(--surface); border:1px solid var(--border);
+    font-size:13px; font-weight:600; color:var(--violet-2);
+    margin-bottom:28px;
+  }
+  .eyebrow .dot{width:6px; height:6px; border-radius:50%; background:var(--mint); box-shadow:0 0 8px var(--mint);}
+  h1{
+    font-size:clamp(38px, 6vw, 72px);
+    font-weight:900;
+    letter-spacing:-0.03em;
+    line-height:1.06;
+    max-width:920px;
+    margin:0 auto 22px;
+  }
+  h1 .grad{
+    background:linear-gradient(120deg, var(--violet-2), var(--violet) 55%, var(--coral));
+    -webkit-background-clip:text; background-clip:text; color:transparent;
+  }
+  .hero-sub{
+    font-size:19px; color:var(--text-dim); max-width:600px;
+    margin:0 auto 36px; font-weight:400;
+  }
+  .hero-cta{display:flex; gap:14px; justify-content:center; flex-wrap:wrap; margin-bottom:16px;}
+  .btn-lg{padding:15px 30px; font-size:16px;}
+  .hero-note{font-size:13.5px; color:var(--text-faint); margin-top:6px;}
+
+  /* platform pills */
+  .platforms{
+    display:flex; gap:10px; justify-content:center; margin-top:40px; flex-wrap:wrap;
+  }
+  .platform-pill{
+    display:flex; align-items:center; gap:8px;
+    padding:9px 16px; border-radius:12px;
+    background:var(--surface); border:1px solid var(--border);
+    font-size:13.5px; font-weight:600; color:var(--text-dim);
+  }
+
+  /* ---------- App preview mock ---------- */
+  .preview{
+    position:relative; z-index:1;
+    max-width:1000px; margin:64px auto 0;
+    border-radius:28px;
+    background:linear-gradient(180deg, var(--surface), var(--bg-2));
+    border:1px solid var(--border);
+    padding:14px;
+    box-shadow:0 40px 100px -30px rgba(0,0,0,0.7);
+  }
+  .preview-inner{
+    border-radius:18px;
+    background:var(--bg-2);
+    padding:28px;
+    display:grid;
+    grid-template-columns:220px 1fr;
+    gap:24px;
+    min-height:380px;
+  }
+  .preview-side{display:flex; flex-direction:column; gap:6px;}
+  .side-item{
+    display:flex; align-items:center; gap:10px;
+    padding:10px 12px; border-radius:10px; font-size:13.5px; font-weight:600; color:var(--text-dim);
+  }
+  .side-item.active{background:var(--surface-2); color:var(--text);}
+  .side-dot{width:8px; height:8px; border-radius:50%; background:var(--text-faint);}
+  .side-item.active .side-dot{background:var(--violet-2);}
+  .preview-main{display:flex; flex-direction:column; gap:14px;}
+  .mock-row{display:grid; grid-template-columns:repeat(3,1fr); gap:14px;}
+  .mock-card{
+    background:var(--surface); border:1px solid var(--border); border-radius:14px;
+    padding:16px;
+  }
+  .mock-card .k{font-size:12px; color:var(--text-faint); font-weight:600; text-transform:uppercase; letter-spacing:.04em;}
+  .mock-card .v{font-size:22px; font-weight:800; margin-top:6px;}
+  .mock-card .v.violet{color:var(--violet-2);}
+  .mock-card .v.mint{color:var(--mint);}
+  .mock-card .v.gold{color:var(--gold);}
+  .mock-pipeline{
+    background:var(--surface); border:1px solid var(--border); border-radius:14px; padding:16px; flex:1;
+    display:flex; flex-direction:column; gap:10px;
+  }
+  .mock-pipeline .k{font-size:12px; color:var(--text-faint); font-weight:600; text-transform:uppercase; letter-spacing:.04em; margin-bottom:4px;}
+  .deal-row{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:11px 14px; border-radius:10px; background:var(--surface-2);
+    font-size:13.5px;
+  }
+  .deal-row .name{font-weight:600;}
+  .deal-row .stage{
+    font-size:11px; font-weight:700; padding:4px 10px; border-radius:999px;
+    text-transform:uppercase; letter-spacing:.03em;
+  }
+  .stage.negotiating{background:rgba(251,191,36,0.15); color:var(--gold);}
+  .stage.contracted{background:rgba(124,92,255,0.18); color:var(--violet-2);}
+  .stage.paid{background:rgba(74,222,128,0.15); color:var(--mint);}
+
+  @media (max-width:720px){
+    .preview-inner{grid-template-columns:1fr;}
+    .preview-side{display:none;}
+    .mock-row{grid-template-columns:1fr 1fr;}
+  }
+
+  /* ---------- Sections ---------- */
+  section{position:relative; z-index:1; padding:100px 24px;}
+  .section-head{max-width:640px; margin:0 auto 56px; text-align:center;}
+  .section-tag{
+    font-size:13px; font-weight:700; letter-spacing:.06em; text-transform:uppercase;
+    color:var(--violet-2); margin-bottom:14px;
+  }
+  h2{font-size:clamp(28px, 4vw, 42px); font-weight:800; letter-spacing:-0.02em; margin-bottom:16px;}
+  .section-sub{color:var(--text-dim); font-size:16.5px;}
+
+  /* features grid */
+  .features{
+    display:grid; grid-template-columns:repeat(3, 1fr); gap:20px;
+    max-width:1180px; margin:0 auto;
+  }
+  .feature-card{
+    background:var(--surface); border:1px solid var(--border); border-radius:var(--radius);
+    padding:28px; transition:border-color .2s ease, transform .2s ease;
+  }
+  .feature-card:hover{border-color:#3d3d52; transform:translateY(-3px);}
+  .feature-icon{
+    width:44px; height:44px; border-radius:12px;
+    display:flex; align-items:center; justify-content:center;
+    font-size:20px; margin-bottom:18px;
+  }
+  .feature-card h3{font-size:18px; font-weight:700; margin-bottom:10px; letter-spacing:-0.01em;}
+  .feature-card p{color:var(--text-dim); font-size:14.5px; line-height:1.6;}
+  .icon-violet{background:rgba(124,92,255,0.15); color:var(--violet-2);}
+  .icon-coral{background:rgba(255,107,107,0.15); color:var(--coral);}
+  .icon-mint{background:rgba(74,222,128,0.15); color:var(--mint);}
+  .icon-gold{background:rgba(251,191,36,0.15); color:var(--gold);}
+
+  @media (max-width:900px){ .features{grid-template-columns:1fr 1fr;} }
+  @media (max-width:560px){ .features{grid-template-columns:1fr;} }
+
+  /* ---------- workflow / how it works ---------- */
+  .flow{
+    max-width:900px; margin:0 auto;
+    display:flex; flex-direction:column; gap:0;
+  }
+  .flow-step{
+    display:flex; gap:24px; padding:28px 0;
+    border-bottom:1px solid var(--border);
+  }
+  .flow-step:last-child{border-bottom:none;}
+  .flow-num{
+    flex-shrink:0; width:44px; height:44px; border-radius:12px;
+    background:var(--surface); border:1px solid var(--border);
+    display:flex; align-items:center; justify-content:center;
+    font-weight:800; color:var(--violet-2); font-size:16px;
+  }
+  .flow-body h3{font-size:17px; font-weight:700; margin-bottom:6px;}
+  .flow-body p{color:var(--text-dim); font-size:14.5px; max-width:560px;}
+
+  /* ---------- Platform / dual OS ---------- */
+  .dual{
+    max-width:1000px; margin:0 auto;
+    display:grid; grid-template-columns:1fr 1fr; gap:20px;
+  }
+  .dual-card{
+    background:linear-gradient(160deg, var(--surface), var(--bg-2));
+    border:1px solid var(--border); border-radius:var(--radius);
+    padding:32px; text-align:center;
+  }
+  .dual-card .glyph{font-size:34px; margin-bottom:14px;}
+  .dual-card h3{font-size:19px; font-weight:700; margin-bottom:8px;}
+  .dual-card p{color:var(--text-dim); font-size:14px;}
+  @media (max-width:640px){ .dual{grid-template-columns:1fr;} }
+
+  /* ---------- CTA ---------- */
+  .cta-section{
+    max-width:980px; margin:0 auto;
+    background:linear-gradient(135deg, #241a4d, #141420 60%);
+    border:1px solid var(--border); border-radius:28px;
+    padding:64px 40px; text-align:center;
+    position:relative; overflow:hidden;
+  }
+  .cta-section::before{
+    content:""; position:absolute; inset:0;
+    background:radial-gradient(400px 300px at 80% 0%, rgba(124,92,255,0.35), transparent 60%);
+  }
+  .cta-section > *{position:relative;}
+  .cta-section h2{margin-bottom:14px;}
+  .cta-section p{color:var(--text-dim); font-size:16px; margin-bottom:32px; max-width:480px; margin-left:auto; margin-right:auto;}
+
+  /* ---------- Footer ---------- */
+  footer{
+    border-top:1px solid var(--border);
+    padding:48px 24px 32px;
+    position:relative; z-index:1;
+  }
+  .footer-wrap{
+    max-width:1180px; margin:0 auto;
+    display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:20px;
+  }
+  .footer-links{display:flex; gap:28px; font-size:14px; color:var(--text-dim);}
+  .footer-links a:hover{color:var(--text);}
+  .footer-copy{color:var(--text-faint); font-size:13px;}
+
+  /* reveal animation */
+  .reveal{opacity:0; transform:translateY(18px); transition:opacity .6s ease, transform .6s ease;}
+  .reveal.in{opacity:1; transform:translateY(0);}
+
+  @media (max-width:860px){
+    .nav-links{display:none;}
+    .menu-toggle{display:block;}
+  }
+  @media (max-width:640px){
+    .footer-wrap > div:last-child{align-items:flex-start !important;}
+    .footer-links{gap:16px 20px; flex-wrap:wrap;}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <nav>
+    <div class="logo">
+      <img class="logo-mark" src="assets/icon.png" alt="Brandzy" />
+      Brandzy
+    </div>
+    <div class="nav-links">
+      <a href="#features">Features</a>
+      <a href="#how-it-works">How it works</a>
+      <a href="#platforms">Platforms</a>
+      <a href="pricing.html">Pricing</a>
+    </div>
+    <div class="nav-cta">
+      <a href="#get-started" class="btn btn-ghost">Sign in</a>
+      <a href="#get-started" class="btn btn-primary">Get Brandzy</a>
+    </div>
+  </nav>
+</header>
+
+<section class="hero">
+  <div class="wrap">
+    <div class="eyebrow"><span class="dot"></span> Now in development for iOS &amp; Android</div>
+    <h1>Run your creator business<br class="br-desktop"> like a <span class="grad">business</span>.</h1>
+    <p class="hero-sub">Brandzy is the deal and payment operating system for independent creators — track every brand deal, send invoices, and manage clients from one clean app.</p>
+    <div class="hero-cta">
+      <a href="#get-started" class="btn btn-primary btn-lg">Get early access</a>
+      <a href="#features" class="btn btn-ghost btn-lg">See what it does</a>
+    </div>
+    <p class="hero-note">Free to start · No spreadsheet required</p>
+
+    <div class="platforms">
+      <div class="platform-pill">🍎 iOS</div>
+      <div class="platform-pill">🤖 Android</div>
+      <div class="platform-pill">🔒 Your data stays on device</div>
+    </div>
+
+    <div class="preview reveal">
+      <div class="preview-inner">
+        <div class="preview-side">
+          <div class="side-item active"><span class="side-dot"></span> Dashboard</div>
+          <div class="side-item"><span class="side-dot"></span> Pipeline</div>
+          <div class="side-item"><span class="side-dot"></span> CRM</div>
+          <div class="side-item"><span class="side-dot"></span> Invoices</div>
+          <div class="side-item"><span class="side-dot"></span> Media Kit</div>
+          <div class="side-item"><span class="side-dot"></span> Settings</div>
+        </div>
+        <div class="preview-main">
+          <div class="mock-row">
+            <div class="mock-card"><div class="k">Active deals</div><div class="v violet">7</div></div>
+            <div class="mock-card"><div class="k">Pipeline value</div><div class="v mint">$18.4k</div></div>
+            <div class="mock-card"><div class="k">Awaiting payout</div><div class="v gold">$3.2k</div></div>
+          </div>
+          <div class="mock-pipeline">
+            <div class="k">Recent deals</div>
+            <div class="deal-row"><span class="name">Aurora Skincare</span><span class="stage negotiating">Negotiating</span></div>
+            <div class="deal-row"><span class="name">Northwind Audio</span><span class="stage contracted">Contracted</span></div>
+            <div class="deal-row"><span class="name">Glow Supplements Co.</span><span class="stage paid">Paid</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="features">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="section-tag">Everything in one place</div>
+      <h2>Stop chasing deals across five apps</h2>
+      <p class="section-sub">Brandzy replaces the DMs, spreadsheets, and half-finished invoices with one workflow built for how brand deals actually happen.</p>
+    </div>
+
+    <div class="features">
+      <div class="feature-card reveal">
+        <div class="feature-icon icon-violet">📊</div>
+        <h3>Deal pipeline</h3>
+        <p>Move every brand deal through Outreach → Negotiating → Contracted → Delivered → Paid, and always know what's next.</p>
+      </div>
+      <div class="feature-card reveal">
+        <div class="feature-icon icon-mint">🧾</div>
+        <h3>Invoicing</h3>
+        <p>Generate clean invoices straight from a deal, share them in one tap, and mark them paid the moment the money lands.</p>
+      </div>
+      <div class="feature-card reveal">
+        <div class="feature-icon icon-coral">👥</div>
+        <h3>Client CRM</h3>
+        <p>Keep every brand contact, past deal, and note in one place — no more digging through old email threads.</p>
+      </div>
+      <div class="feature-card reveal">
+        <div class="feature-icon icon-gold">✅</div>
+        <h3>Deliverables tracking</h3>
+        <p>Check off posts, stories, and edits as you ship them, so nothing slips through the cracks on a busy campaign.</p>
+      </div>
+      <div class="feature-card reveal">
+        <div class="feature-icon icon-violet">🪪</div>
+        <h3>Media kit</h3>
+        <p>A shareable, always-current media kit pulled from your real numbers — send one link instead of a stale PDF.</p>
+      </div>
+      <div class="feature-card reveal">
+        <div class="feature-icon icon-mint">🔔</div>
+        <h3>Smart reminders</h3>
+        <p>Get nudged before a deadline slips or a payment goes overdue, so follow-ups happen before you even think about it.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="how-it-works" style="background:var(--bg-2); border-top:1px solid var(--border); border-bottom:1px solid var(--border);">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="section-tag">How it works</div>
+      <h2>From first DM to paid invoice</h2>
+    </div>
+    <div class="flow">
+      <div class="flow-step reveal">
+        <div class="flow-num">1</div>
+        <div class="flow-body">
+          <h3>Log the deal</h3>
+          <p>A brand slides into your DMs — add it to Brandzy in seconds with rate, deliverables, and deadline.</p>
+        </div>
+      </div>
+      <div class="flow-step reveal">
+        <div class="flow-num">2</div>
+        <div class="flow-body">
+          <h3>Track it through the pipeline</h3>
+          <p>Watch the deal move from negotiating to contracted, with every deliverable checked off as you go.</p>
+        </div>
+      </div>
+      <div class="flow-step reveal">
+        <div class="flow-num">3</div>
+        <div class="flow-body">
+          <h3>Send the invoice</h3>
+          <p>Generate an invoice directly from the deal and share it with the brand in one tap.</p>
+        </div>
+      </div>
+      <div class="flow-step reveal">
+        <div class="flow-num">4</div>
+        <div class="flow-body">
+          <h3>Get paid, stay organized</h3>
+          <p>Mark it paid, and your dashboard, CRM, and media kit numbers update automatically.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="platforms">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="section-tag">One app, both platforms</div>
+      <h2>Built for wherever your creators are</h2>
+      <p class="section-sub">A single Kotlin Multiplatform codebase means Brandzy feels native on both iOS and Android — no compromises either way.</p>
+    </div>
+    <div class="dual">
+      <div class="dual-card reveal">
+        <div class="glyph">🍎</div>
+        <h3>iOS</h3>
+        <p>A fast, native-feeling experience for the platform most creators already carry.</p>
+      </div>
+      <div class="dual-card reveal">
+        <div class="glyph">🤖</div>
+        <h3>Android</h3>
+        <p>The same deal pipeline and invoicing tools, tuned for Android from the ground up.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="pricing">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="section-tag">Pricing</div>
+      <h2>Free to start. No cut of your deals, ever.</h2>
+      <p class="section-sub">Brandzy is currently free during early access. And regardless of pricing, Brandzy never takes a percentage of the money you make from a brand deal — payments go directly from the brand to you, never through us. Full details on <a href="pricing.html">our pricing page</a>.</p>
+    </div>
+  </div>
+</section>
+
+<section id="get-started">
+  <div class="cta-section reveal">
+    <h2>Your next brand deal deserves better than a spreadsheet</h2>
+    <p>Join the early access list and be first to know when Brandzy lands on iOS and Android.</p>
+    <div class="hero-cta">
+      <a href="#" class="btn btn-primary btn-lg">Get early access</a>
+      <a href="https://github.com/" class="btn btn-ghost btn-lg">View on GitHub</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-wrap">
+    <div>
+      <div class="logo">
+        <img class="logo-mark" src="assets/icon.png" alt="Brandzy" />
+        Brandzy
+      </div>
+      <div class="footer-copy" style="margin-top:10px;">© 2026 Brandzy. Built for independent creators.</div>
+    </div>
+    <div style="display:flex; flex-direction:column; gap:12px; align-items:flex-end;">
+      <div class="footer-links">
+        <a href="#features">Features</a>
+        <a href="#how-it-works">How it works</a>
+        <a href="#platforms">Platforms</a>
+        <a href="pricing.html">Pricing</a>
+        <a href="https://github.com/">GitHub</a>
+      </div>
+      <div class="footer-links">
+        <a href="terms.html">Terms &amp; Conditions</a>
+        <a href="privacy.html">Privacy Policy</a>
+        <a href="refund-policy.html">Refund &amp; Cancellation</a>
+        <a href="contact.html">Contact Us</a>
+        <a href="mailto:info@brandzy.app">info@brandzy.app</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+</script>
+
+</body>
+</html>
