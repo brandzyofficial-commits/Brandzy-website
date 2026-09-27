@@ -205,6 +205,90 @@
     .mock-row{grid-template-columns:1fr 1fr;}
   }
 
+  /* ---------- Product showcase mockups ---------- */
+  .showcase{
+    display:grid; grid-template-columns:repeat(3, 1fr); gap:24px;
+    max-width:1180px; margin:0 auto;
+  }
+  @media (max-width:920px){ .showcase{grid-template-columns:1fr;} }
+  .showcase-card{
+    background:linear-gradient(180deg, var(--surface), var(--bg-2));
+    border:1px solid var(--border); border-radius:24px;
+    padding:16px; box-shadow:0 30px 70px -30px rgba(0,0,0,0.6);
+  }
+  .showcase-chrome{
+    display:flex; align-items:center; gap:6px;
+    padding:0 4px 12px;
+  }
+  .showcase-dot{width:9px; height:9px; border-radius:50%; background:var(--border);}
+  .showcase-inner{
+    background:var(--bg-2); border-radius:14px; padding:20px;
+    min-height:260px; display:flex; flex-direction:column; gap:12px;
+  }
+  .showcase-label{font-size:15px; font-weight:700; margin-top:16px; padding:0 4px;}
+  .showcase-sub{font-size:13px; color:var(--text-dim); padding:0 4px; line-height:1.5;}
+
+  /* pipeline kanban mock */
+  .kanban{display:flex; flex-direction:column; gap:8px;}
+  .kanban-col-label{font-size:10.5px; font-weight:700; text-transform:uppercase; letter-spacing:.04em; color:var(--text-faint); margin-top:6px;}
+  .kanban-col-label:first-child{margin-top:0;}
+  .kanban-card{
+    background:var(--surface-2); border-radius:10px; padding:10px 12px;
+    display:flex; align-items:center; justify-content:space-between; font-size:13px;
+  }
+  .kanban-card .amt{color:var(--mint); font-weight:700; font-size:12.5px;}
+
+  /* invoice list mock */
+  .inv-row{
+    display:flex; align-items:center; justify-content:space-between;
+    background:var(--surface-2); border-radius:10px; padding:11px 14px;
+  }
+  .inv-row .who{font-size:13px; font-weight:600;}
+  .inv-row .no{font-size:11px; color:var(--text-faint); margin-top:2px;}
+  .inv-row .amt{font-size:14px; font-weight:800;}
+  .inv-badge{font-size:10.5px; font-weight:700; padding:3px 9px; border-radius:999px; text-transform:uppercase; letter-spacing:.03em; margin-top:4px; display:inline-block;}
+  .inv-badge.paid{background:rgba(74,222,128,0.15); color:var(--mint);}
+  .inv-badge.sent{background:rgba(124,92,255,0.18); color:var(--violet-2);}
+  .inv-badge.overdue{background:rgba(255,107,107,0.15); color:var(--coral);}
+
+  /* media kit mock */
+  .mk-header{display:flex; align-items:center; gap:12px;}
+  .mk-avatar{width:48px; height:48px; border-radius:50%; background:linear-gradient(135deg, var(--violet), var(--coral)); flex-shrink:0;}
+  .mk-name{font-size:15px; font-weight:700;}
+  .mk-handle{font-size:12px; color:var(--text-faint);}
+  .mk-stats{display:grid; grid-template-columns:repeat(3,1fr); gap:8px; margin-top:4px;}
+  .mk-stat{background:var(--surface-2); border-radius:10px; padding:10px; text-align:center;}
+  .mk-stat .v{font-size:16px; font-weight:800; color:var(--violet-2);}
+  .mk-stat .k{font-size:10px; color:var(--text-faint); text-transform:uppercase; letter-spacing:.03em; margin-top:2px;}
+  .mk-cta{
+    margin-top:auto; background:linear-gradient(135deg, var(--violet), #6a45f0);
+    color:white; text-align:center; padding:11px; border-radius:10px; font-size:13px; font-weight:700;
+  }
+
+  /* ---------- Comparison ---------- */
+  .compare{
+    max-width:820px; margin:0 auto;
+    background:var(--surface); border:1px solid var(--border); border-radius:var(--radius);
+    overflow:hidden;
+  }
+  .compare-row{
+    display:grid; grid-template-columns:1.4fr 1fr 1fr;
+    align-items:center; padding:18px 24px;
+    border-bottom:1px solid var(--border);
+    font-size:14.5px;
+  }
+  .compare-row:last-child{border-bottom:none;}
+  .compare-row.head{
+    background:var(--surface-2); font-weight:700; font-size:13px;
+    text-transform:uppercase; letter-spacing:.04em; color:var(--text-dim);
+  }
+  .compare-row .label{color:var(--text); font-weight:600;}
+  .compare-row .old{color:var(--text-faint); text-align:center;}
+  .compare-row .new{color:var(--mint); text-align:center; font-weight:700;}
+  @media (max-width:640px){
+    .compare-row{grid-template-columns:1.2fr 1fr 1fr; padding:14px 16px; font-size:13px;}
+  }
+
   /* ---------- Sections ---------- */
   section{position:relative; z-index:1; padding:100px 24px;}
   .section-head{max-width:640px; margin:0 auto 56px; text-align:center;}
@@ -423,6 +507,103 @@
         <h3>Smart reminders</h3>
         <p>Get nudged before a deadline slips or a payment goes overdue, so follow-ups happen before you even think about it.</p>
       </div>
+    </div>
+  </div>
+</section>
+
+<section id="showcase" style="background:var(--bg-2); border-top:1px solid var(--border); border-bottom:1px solid var(--border);">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="section-tag">See it in action</div>
+      <h2>Every part of the deal, in one place</h2>
+      <p class="section-sub">A quick look at the tools you'll actually use — no spreadsheets, no separate invoicing app, no lost DMs.</p>
+    </div>
+
+    <div class="showcase">
+      <div class="showcase-card reveal">
+        <div class="showcase-chrome">
+          <span class="showcase-dot"></span><span class="showcase-dot"></span><span class="showcase-dot"></span>
+        </div>
+        <div class="showcase-inner">
+          <div class="kanban">
+            <div class="kanban-col-label">Negotiating</div>
+            <div class="kanban-card"><span>Aurora Skincare</span><span class="amt">$2,400</span></div>
+            <div class="kanban-col-label">Contracted</div>
+            <div class="kanban-card"><span>Northwind Audio</span><span class="amt">$1,850</span></div>
+            <div class="kanban-col-label">Paid</div>
+            <div class="kanban-card"><span>Glow Supplements</span><span class="amt">$3,200</span></div>
+          </div>
+        </div>
+        <div class="showcase-label">Deal pipeline</div>
+        <div class="showcase-sub">Drag every brand deal through the stages that actually match how deals close.</div>
+      </div>
+
+      <div class="showcase-card reveal">
+        <div class="showcase-chrome">
+          <span class="showcase-dot"></span><span class="showcase-dot"></span><span class="showcase-dot"></span>
+        </div>
+        <div class="showcase-inner">
+          <div class="inv-row">
+            <div><div class="who">Aurora Skincare</div><div class="no">INV-2026-014</div></div>
+            <div style="text-align:right;"><div class="amt">$2,400</div><span class="inv-badge sent">Sent</span></div>
+          </div>
+          <div class="inv-row">
+            <div><div class="who">Northwind Audio</div><div class="no">INV-2026-013</div></div>
+            <div style="text-align:right;"><div class="amt">$1,850</div><span class="inv-badge overdue">Overdue</span></div>
+          </div>
+          <div class="inv-row">
+            <div><div class="who">Glow Supplements</div><div class="no">INV-2026-012</div></div>
+            <div style="text-align:right;"><div class="amt">$3,200</div><span class="inv-badge paid">Paid</span></div>
+          </div>
+        </div>
+        <div class="showcase-label">Invoicing</div>
+        <div class="showcase-sub">Generated straight from the deal — share it, then mark it paid the moment it lands.</div>
+      </div>
+
+      <div class="showcase-card reveal">
+        <div class="showcase-chrome">
+          <span class="showcase-dot"></span><span class="showcase-dot"></span><span class="showcase-dot"></span>
+        </div>
+        <div class="showcase-inner">
+          <div class="mk-header">
+            <div class="mk-avatar"></div>
+            <div>
+              <div class="mk-name">Sam Rivera</div>
+              <div class="mk-handle">brandzy.app/samrivera</div>
+            </div>
+          </div>
+          <div class="mk-stats">
+            <div class="mk-stat"><div class="v">128K</div><div class="k">Followers</div></div>
+            <div class="mk-stat"><div class="v">4.8%</div><div class="k">Engagement</div></div>
+            <div class="mk-stat"><div class="v">32</div><div class="k">Brand deals</div></div>
+          </div>
+          <div class="mk-cta">Work with Sam →</div>
+        </div>
+        <div class="showcase-label">Media kit</div>
+        <div class="showcase-sub">A live, shareable link pulled from your real numbers — send it instead of a stale PDF.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="compare">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="section-tag">Why Brandzy</div>
+      <h2>Built for brand deals, not general project work</h2>
+      <p class="section-sub">Generic tools weren't built for how creator brand deals actually work. Brandzy is.</p>
+    </div>
+    <div class="compare reveal">
+      <div class="compare-row head">
+        <div>&nbsp;</div>
+        <div class="old">DMs + spreadsheets</div>
+        <div class="new">Brandzy</div>
+      </div>
+      <div class="compare-row"><div class="label">Deal stages built for brand deals</div><div class="old">✕</div><div class="new">✓</div></div>
+      <div class="compare-row"><div class="label">Invoices generated from the deal</div><div class="old">✕</div><div class="new">✓</div></div>
+      <div class="compare-row"><div class="label">Deadline &amp; payment reminders</div><div class="old">✕</div><div class="new">✓</div></div>
+      <div class="compare-row"><div class="label">Shareable, always-current media kit</div><div class="old">✕</div><div class="new">✓</div></div>
+      <div class="compare-row"><div class="label">Cut of your brand deal earnings</div><div class="old">N/A</div><div class="new">0%</div></div>
     </div>
   </div>
 </section>
