@@ -1,0 +1,37 @@
+# Brandzy
+
+> Brandzy is a web app for independent creators and influencers, built in India, that puts brand deals, invoices, a client CRM, deliverables, a live media kit and a creator storefront behind one shareable link. It is a flat monthly subscription with a 7-day free trial and no commission on creator earnings.
+
+Brandzy is managed by Tharun Tech Solutions, a sole proprietorship based in Hanamkonda, Warangal, Telangana, India. Contact: info@brandzy.app, +91 63009 67265.
+
+## What Brandzy does
+- Brand deal pipeline: track each sponsorship from inquiry to negotiation, contract, delivery and payment.
+- Invoicing: create invoices from a deal, track what's due, overdue and paid, and log payment reminders.
+- Client CRM: keep brand contacts, notes and deal history in one place.
+- Deliverables: due dates for every reel, video or post in a deal.
+- Live media kit: a public page with the creator's audience stats, past brand work and an inquiry form brands can fill in. New inquiries arrive as alerts and become deals.
+- Creator storefront: list digital downloads, coaching sessions and memberships on the same public page; orders land in the dashboard.
+- Works in any web browser on phone or desktop. Android and iOS apps are planned.
+
+## Pricing
+- One 7-day free trial per creator; cancel before it ends and nothing is charged.
+- Growth: ₹999/month in India, US$12/month outside India.
+- Pro: ₹1,999/month in India, US$24/month outside India. Adds priority support; advanced analytics, team seats and custom domains are coming soon.
+- No transaction fee or commission: payments from brands and customers go directly to the creator.
+- Indian creators pay through Razorpay (UPI, cards, net banking). Cancel anytime; 14-day refund window.
+
+## Who it's for
+YouTubers, Instagram creators and other influencers, mainly in India, who work with brands and want to replace spreadsheets, chat threads and invoice templates with one tool.
+
+## How it compares
+Link-in-bio tools such as Stan Store or Linktree focus on selling to fans. Brandzy also covers the brand side: sponsorship pipeline, invoices, payment tracking and a media kit with an inquiry form. It charges a flat fee instead of a percentage.
+
+## Links
+- [Home](https://brandzyofficial-commits.github.io/Brandzy-website/): overview, features, pricing and FAQ
+- [Pricing](https://brandzyofficial-commits.github.io/Brandzy-website/pricing.html)
+- [Web app](https://brandzyofficial-commits.github.io/Brandzy-website/app/): sign up or sign in
+- [Contact](https://brandzyofficial-commits.github.io/Brandzy-website/contact.html)
+- [Terms](https://brandzyofficial-commits.github.io/Brandzy-website/terms.html)
+- [Privacy](https://brandzyofficial-commits.github.io/Brandzy-website/privacy.html)
+- [Refund & Cancellation](https://brandzyofficial-commits.github.io/Brandzy-website/refund-policy.html)
+- [Shipping & Delivery](https://brandzyofficial-commits.github.io/Brandzy-website/shipping-delivery.html)
