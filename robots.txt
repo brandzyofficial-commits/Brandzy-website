@@ -1,7 +1,7 @@
 # Brandzy — all crawlers, including AI search and assistant crawlers, are welcome.
 User-agent: *
 Allow: /
-Disallow: /Brandzy-website/app/
+Disallow: /app/
 
 User-agent: GPTBot
 Allow: /
@@ -26,4 +26,4 @@ Allow: /
 User-agent: Applebot-Extended
 Allow: /
 
-Sitemap: https://brandzyofficial-commits.github.io/Brandzy-website/sitemap.xml
+Sitemap: https://brandzy.app/sitemap.xml

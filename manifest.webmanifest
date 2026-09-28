@@ -1,19 +1,19 @@
 {
-  "id": "/Brandzy-website/app/",
+  "id": "/app/",
   "name": "Brandzy – Creator OS",
   "short_name": "Brandzy",
   "description": "Brand deals, invoices, media kit and storefront for creators.",
-  "start_url": "/Brandzy-website/app/",
-  "scope": "/Brandzy-website/",
+  "start_url": "/app/",
+  "scope": "/",
   "display": "standalone",
   "orientation": "portrait",
   "background_color": "#121418",
   "theme_color": "#121418",
   "categories": ["business", "productivity"],
   "icons": [
-    { "src": "/Brandzy-website/assets/pwa-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
-    { "src": "/Brandzy-website/assets/pwa-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
-    { "src": "/Brandzy-website/assets/pwa-maskable-192.png", "sizes": "192x192", "type": "image/png", "purpose": "maskable" },
-    { "src": "/Brandzy-website/assets/pwa-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+    { "src": "/assets/pwa-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "/assets/pwa-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "/assets/pwa-maskable-192.png", "sizes": "192x192", "type": "image/png", "purpose": "maskable" },
+    { "src": "/assets/pwa-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
   ]
 }

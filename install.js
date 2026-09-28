@@ -4,13 +4,13 @@
  *  - iPhone / iPad: Safari has no install API, so we show the two-step Share -> Add to Home Screen guide.
  *  - Already installed (opened from the home screen): nothing is shown.
  *
- * Include with <script src="/Brandzy-website/install.js" defer></script>.
+ * Include with <script src="/install.js" defer></script>.
  * Add data-floating-button to the script tag to show a floating "Add to Home Screen" button.
  * Any element with [data-brandzy-install] also opens the installer, and the web app calls
  * window.brandzyInstall() from Settings.
  */
 (function () {
-    var BASE = '/Brandzy-website/';
+    var BASE = '/';
     var deferredPrompt = null;
     var script = document.currentScript;
     var wantsFloating = !!(script && script.hasAttribute('data-floating-button'));
