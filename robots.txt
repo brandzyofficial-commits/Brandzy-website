@@ -2,6 +2,7 @@
 User-agent: *
 Allow: /
 Disallow: /app/
+Disallow: /pay.html
 
 User-agent: GPTBot
 Allow: /

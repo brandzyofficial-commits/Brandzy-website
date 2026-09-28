@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en-IN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Secure checkout · Brandzy</title>
+<meta name="robots" content="noindex, nofollow" />
+<meta name="referrer" content="no-referrer" />
+<link rel="icon" type="image/png" href="/assets/favicon.png" />
+<style>
+  :root { --bg: #f8fafc; --card: #ffffff; --text: #0f172a; --muted: #64748b; --accent: #6d28d9; --border: #e2e8f0; }
+  @media (prefers-color-scheme: dark) {
+    :root { --bg: #0b0f19; --card: #111827; --text: #f1f5f9; --muted: #94a3b8; --accent: #a78bfa; --border: #1f2937; }
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; min-height: 100vh; display: grid; place-items: center; padding: 16px;
+         background: var(--bg); color: var(--text); font-family: system-ui, -apple-system, "Segoe UI", sans-serif; }
+  .card { width: 100%; max-width: 420px; background: var(--card); border: 1px solid var(--border);
+          border-radius: 16px; padding: 28px 24px; text-align: center; }
+  .logo { display: inline-flex; align-items: center; gap: 8px; font-weight: 800; font-size: 20px; margin-bottom: 18px; }
+  .logo img { width: 32px; height: 32px; border-radius: 8px; }
+  h1 { font-size: 18px; margin: 0 0 8px; }
+  p { color: var(--muted); margin: 0 0 16px; line-height: 1.5; font-size: 15px; }
+  .spinner { width: 28px; height: 28px; margin: 8px auto 16px; border: 3px solid var(--border);
+             border-top-color: var(--accent); border-radius: 50%; animation: spin 0.9s linear infinite; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  a.btn { display: inline-block; padding: 12px 20px; border-radius: 999px; background: var(--accent);
+          color: #fff; text-decoration: none; font-weight: 700; }
+  .hidden { display: none; }
+</style>
+</head>
+<body>
+<main class="card">
+  <div class="logo"><img src="/assets/logo-mark.png" alt="" />Brandzy</div>
+  <div id="loading">
+    <div class="spinner" aria-hidden="true"></div>
+    <h1>Opening secure checkout…</h1>
+    <p>Payments are processed by Cashfree Payments. Don't close this tab.</p>
+  </div>
+  <div id="failed" class="hidden">
+    <h1>Checkout couldn't open</h1>
+    <p id="reason">This payment link is incomplete or has expired.</p>
+    <a class="btn" href="/app/">Back to Brandzy</a>
+  </div>
+</main>
+<script src="https://sdk.cashfree.com/js/v3/cashfree.js"></script>
+<script>
+  (function () {
+    function fail(message) {
+      document.getElementById("loading").classList.add("hidden");
+      document.getElementById("failed").classList.remove("hidden");
+      if (message) document.getElementById("reason").textContent = message;
+    }
+    var params = {};
+    location.hash.replace(/^#/, "").split("&").forEach(function (part) {
+      var i = part.indexOf("=");
+      if (i > 0) params[part.slice(0, i)] = decodeURIComponent(part.slice(i + 1));
+    });
+    var mode = params.mode === "production" ? "production" : "sandbox";
+    if (!params.session || (params.kind !== "order" && params.kind !== "subscription")) return fail();
+    if (typeof Cashfree !== "function") return fail("The payment page didn't load. Check your connection and try again from Brandzy.");
+    try {
+      var cashfree = Cashfree({ mode: mode });
+      var opened = params.kind === "subscription"
+        ? cashfree.subscriptionsCheckout({ subsSessionId: params.session, redirectTarget: "_self" })
+        : cashfree.checkout({ paymentSessionId: params.session, redirectTarget: "_self" });
+      if (opened && typeof opened.then === "function") {
+        opened.then(function (result) {
+          if (result && result.error) fail(result.error.message);
+        });
+      }
+    } catch (e) {
+      fail();
+    }
+  })();
+</script>
+</body>
+</html>

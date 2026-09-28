@@ -21,7 +21,7 @@ Brandzy is managed by Tharun Tech Solutions, a sole proprietorship based in Hana
 - Growth: ₹999/month in India, US$12/month outside India.
 - Pro: ₹1,999/month in India, US$24/month outside India. Adds priority support; advanced analytics, team seats and custom domains are coming soon.
 - No transaction fee or commission: payments from brands and customers go directly to the creator.
-- Indian creators pay through Razorpay (UPI, cards, net banking). Cancel anytime; 14-day refund window.
+- Indian creators pay through Cashfree Payments (UPI, cards, net banking): one month at a time, or auto-renew by UPI Autopay or card. Turn auto-renew off anytime; 14-day refund window.
 
 ## Who it's for
 YouTubers, Instagram creators and other influencers, mainly in India, who work with brands and want to replace spreadsheets, chat threads and invoice templates with one tool.
