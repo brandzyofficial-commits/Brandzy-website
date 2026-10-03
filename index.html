@@ -3,6 +3,10 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script>
+      // Supabase email links (confirm, reset, expired) that land here belong to the app, which reads the hash.
+      if (/(^|[#&])(access_token|error)=/.test(location.hash)) location.replace("/app/" + location.hash);
+    </script>
     <title>Brandzy – Brand Deal Manager, Invoicing & Media Kit for Creators in India</title>
     <meta name="description" content="Brandzy is the link-in-bio store and brand deal manager for Indian creators, and a Stan Store alternative priced in rupees: sell with built-in UPI checkout, courses and email automations, and manage sponsorships, invoices and a live media kit from one link. 7-day free trial, from ₹999/month, no commission." />
     <meta name="robots" content="index, follow, max-image-preview:large" />
