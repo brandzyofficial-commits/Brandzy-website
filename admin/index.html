@@ -202,6 +202,7 @@ async function overview() {
         ${stat("Trial ended, not paid", num(o.expired), "")}
         ${stat("All creators", num(o.creators), `${o.published} pages published`)}
         ${stat("Sign-ups", num(o.signups7), `last 7 days · ${o.signups30} in 30 days`)}
+        ${stat("Emails sent today", num(o.emailsToday), `of 100 a day on Resend Free · ${num(o.emailsMonth)} this month (3,000 limit)`)}
       </div>
       <div class="two section">
         <div class="card">
