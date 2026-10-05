@@ -198,6 +198,7 @@ async function overview() {
         ${stat("MRR", inr(o.mrr), "packs spread over their months")}
         ${stat("Revenue this month", inr(o.revenueMonth), "billing payments, incl. GST")}
         ${stat("Revenue all time", inr(o.revenueAll), `${o.paymentsCount} payments`)}
+        ${o.revenueUsdAll ? stat("International (US$)", "US$" + num(o.revenueUsdAll), `US$${num(o.revenueUsdMonth)} this month · before Lemon Squeezy fees`) : ""}
         ${stat("On free trial", num(o.trial), "")}
         ${stat("Trial ended, not paid", num(o.expired), "")}
         ${stat("All creators", num(o.creators), `${o.published} pages published`)}
@@ -450,6 +451,8 @@ async function settings() {
             <input id="trialDays" type="number" min="1" max="60" value="${esc(s.trial_days)}" /></div>
           <div><label><input id="emailOn" type="checkbox" ${s.email_sending_enabled ? "checked" : ""} /> Email sending on (broadcasts, automations, receipts)</label>
             <p class="muted" style="font-size:12px">Turn off if Resend limits are hit or something is sending wrongly. Creators' emails queue until it is back on.</p></div>
+          ${"international_billing_enabled" in s ? `<div><label><input id="intlOn" type="checkbox" ${s.international_billing_enabled ? "checked" : ""} /> International (US$) plans on</label>
+            <p class="muted" style="font-size:12px">Shows "Outside India (US$)" in the plan picker, paid through Lemon Squeezy. Turn on only after Lemon Squeezy approves the store and the live keys are set. While off, admins can still test with ?intl=1.</p></div>` : ""}
           <button class="btn primary" id="saveSettings" style="align-self:flex-start">Save settings</button>
           <p id="setMsg"></p>
         </div>
@@ -464,7 +467,9 @@ async function settings() {
     $("saveSettings").onclick = async () => {
       const msg = $("setMsg");
       try {
-        await api("update_settings", { trial_days: Number($("trialDays").value), email_sending_enabled: $("emailOn").checked });
+        const patch = { trial_days: Number($("trialDays").value), email_sending_enabled: $("emailOn").checked };
+        if ($("intlOn")) patch.international_billing_enabled = $("intlOn").checked;
+        await api("update_settings", patch);
         msg.className = "ok"; msg.textContent = "Saved.";
       } catch (e) { msg.className = "err"; msg.textContent = e.message; }
     };
