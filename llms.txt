@@ -12,7 +12,7 @@ Brandzy is managed by Tharun Tech Solutions, a sole proprietorship based in Hana
 - Live media kit: a public page with the creator's photo, audience stats, rate card, the brands they have worked with and an inquiry form. Each inquiry becomes a deal automatically, with a notification, even while the app is closed.
 - Automation: a deal moves to In Progress when the first deliverable is sent, to Delivered when the brand approves everything, and to Paid when its invoice is paid.
 - Deliverables can be sent to the brand for approval by email or WhatsApp from the deal page; invoices can also be sent by email or WhatsApp.
-- Creator storefront with 17 product categories: digital downloads, e-books and guides, online courses, templates, presets and filters, music and audio, art and wallpapers, bundles, 1:1 coaching calls, consultations, workshops and webinars, memberships and communities, services, physical products and merch, affiliate links, a tip jar, and other. Built-in UPI checkout pays the creator directly; orders land in the dashboard.
+- Creator storefront with 17 product categories: digital downloads, e-books and guides, online courses, templates, presets and filters, music and audio, art and wallpapers, bundles, 1:1 coaching calls, consultations, workshops and webinars, memberships and communities, services, physical products and merch, affiliate links, and other. Built-in UPI checkout pays the creator directly; orders land in the dashboard.
 - Course builder and email list on every plan; email broadcasts and email automations (welcome series, after-purchase follow-ups) on Pro.
 - Instagram Auto DM: sends a creator's link by DM when someone comments or messages a keyword (1 active rule on Growth, unlimited on Pro; rolling out after Instagram app review).
 - Verified stats on Pro: YouTube and Instagram numbers sync daily and show a "Verified" badge on the media kit.
@@ -20,8 +20,8 @@ Brandzy is managed by Tharun Tech Solutions, a sole proprietorship based in Hana
 
 ## Pricing
 - One 7-day free trial per creator with every Pro feature; nothing is charged automatically.
-- Growth: ₹999/month in India, US$12/month outside India. Store with UPI checkout, courses, media kit, brand deals, CRM, invoices, email list, 1 Auto DM rule.
-- Pro: ₹1,999/month in India, US$24/month outside India. Everything in Growth plus email broadcasts and automations, unlimited Auto DM rules, verified YouTube and Instagram stats, and priority support; advanced analytics, team seats and custom domains are coming soon.
+- Growth: ₹999/month in India. Store with UPI checkout, courses, media kit, brand deals, CRM, invoices, email list, 1 Auto DM rule.
+- Pro: ₹1,999/month in India. Everything in Growth plus email broadcasts and automations, unlimited Auto DM rules, verified YouTube and Instagram stats, and priority support; advanced analytics, team seats and custom domains are coming soon.
 - No transaction fee or commission: payments from brands and customers go directly to the creator.
 - Indian creators pay through Cashfree Payments (UPI, cards, net banking): prepaid packs of 1, 3, 6 or 12 months (12 months costs the same as 10). No auto-debit; 14-day refund window.
 
