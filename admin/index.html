@@ -449,6 +449,10 @@ async function settings() {
         <div class="actions" style="display:flex;flex-direction:column;gap:14px">
           <div><label for="trialDays">Free trial length for new sign-ups (days)</label><br />
             <input id="trialDays" type="number" min="1" max="60" value="${esc(s.trial_days)}" /></div>
+          ${"auto_renew_enabled" in s ? `<div><label><input id="autoRenewOn" type="checkbox" ${s.auto_renew_enabled ? "checked" : ""} /> Auto-renew (Razorpay subscriptions) on</label>
+            <p class="muted" style="font-size:12px">Shows "Auto-renew" in the plan picker: UPI Autopay or card mandate, every 1/3/6/12 months, INR (and US$ when international plans are on). Turn on only after a test subscription works with the live keys. While off, admins can still test with ?autorenew=1.</p></div>` : ""}
+          <div><label><input id="trialCard" type="checkbox" ${s.trial_requires_payment_method ? "checked" : ""} /> New sign-ups set up auto-pay (UPI/card) to start the trial</label>
+            <p class="muted" style="font-size:12px">On: new accounts see "Start your free trial" and authorise a Razorpay auto-renew mandate (or pay once); the first charge is when the trial ends. Off: the trial starts at sign-up with no payment details. Accounts that already exist are not affected. Turn on only after a test subscription works with the live keys.</p></div>
           <div><label><input id="emailOn" type="checkbox" ${s.email_sending_enabled ? "checked" : ""} /> Email sending on (broadcasts, automations, receipts)</label>
             <p class="muted" style="font-size:12px">Turn off if Resend limits are hit or something is sending wrongly. Creators' emails queue until it is back on.</p></div>
           ${"international_billing_enabled" in s ? `<div><label><input id="intlOn" type="checkbox" ${s.international_billing_enabled ? "checked" : ""} /> International (US$) plans on</label>
@@ -460,15 +464,15 @@ async function settings() {
       <div class="card section" style="max-width:520px">
         <h3>Read-only</h3>
         <dl>
-          <dt>Card/UPI before trial</dt><dd>${s.trial_requires_payment_method ? "Yes" : "No"}</dd>
           <dt>Instagram app id</dt><dd>${esc(s.instagram_app_id || "—")}</dd>
         </dl>
       </div>`;
     $("saveSettings").onclick = async () => {
       const msg = $("setMsg");
       try {
-        const patch = { trial_days: Number($("trialDays").value), email_sending_enabled: $("emailOn").checked };
+        const patch = { trial_days: Number($("trialDays").value), email_sending_enabled: $("emailOn").checked, trial_requires_payment_method: $("trialCard").checked };
         if ($("intlOn")) patch.international_billing_enabled = $("intlOn").checked;
+        if ($("autoRenewOn")) patch.auto_renew_enabled = $("autoRenewOn").checked;
         await api("update_settings", patch);
         msg.className = "ok"; msg.textContent = "Saved.";
       } catch (e) { msg.className = "err"; msg.textContent = e.message; }

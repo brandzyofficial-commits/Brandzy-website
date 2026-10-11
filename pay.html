@@ -24,8 +24,9 @@
   .spinner { width: 28px; height: 28px; margin: 8px auto 16px; border: 3px solid var(--border);
              border-top-color: var(--accent); border-radius: 50%; animation: spin 0.9s linear infinite; }
   @keyframes spin { to { transform: rotate(360deg); } }
-  a.btn { display: inline-block; padding: 12px 20px; border-radius: 999px; background: var(--accent);
-          color: #fff; text-decoration: none; font-weight: 700; }
+  a.btn, button.btn { display: inline-block; padding: 12px 20px; border-radius: 999px; background: var(--accent); border: 0;
+          color: #fff; text-decoration: none; font-weight: 700; font-size: 15px; cursor: pointer; margin: 4px; }
+  a.link { color: var(--muted); font-size: 14px; }
   .hidden { display: none; }
 </style>
 </head>
@@ -35,7 +36,13 @@
   <div id="loading">
     <div class="spinner" aria-hidden="true"></div>
     <h1>Opening secure checkout…</h1>
-    <p>Payments are processed by Cashfree Payments. Don't close this tab.</p>
+    <p id="processor">Payments are processed by Cashfree Payments. Don't close this tab.</p>
+  </div>
+  <div id="closed" class="hidden">
+    <h1>Checkout closed</h1>
+    <p>Auto-pay wasn't set up. You can try again, or go back and pay once instead.</p>
+    <button id="retry" class="btn" type="button">Try again</button>
+    <p><a class="link" href="/app/">Back to Brandzy</a></p>
   </div>
   <div id="failed" class="hidden">
     <h1>Checkout couldn't open</h1>
@@ -43,35 +50,77 @@
     <a class="btn" href="/app/">Back to Brandzy</a>
   </div>
 </main>
-<script src="https://sdk.cashfree.com/js/v3/cashfree.js"></script>
 <script>
   (function () {
+    function show(id) {
+      ["loading", "closed", "failed"].forEach(function (s) {
+        document.getElementById(s).classList.toggle("hidden", s !== id);
+      });
+    }
     function fail(message) {
-      document.getElementById("loading").classList.add("hidden");
-      document.getElementById("failed").classList.remove("hidden");
+      show("failed");
       if (message) document.getElementById("reason").textContent = message;
+    }
+    function load(src, done) {
+      var s = document.createElement("script");
+      s.src = src;
+      s.onload = done;
+      s.onerror = function () { fail("The payment page didn't load. Check your connection and try again from Brandzy."); };
+      document.head.appendChild(s);
     }
     var params = {};
     location.hash.replace(/^#/, "").split("&").forEach(function (part) {
       var i = part.indexOf("=");
-      if (i > 0) params[part.slice(0, i)] = decodeURIComponent(part.slice(i + 1));
+      if (i > 0) params[part.slice(0, i)] = decodeURIComponent(part.slice(i + 1).replace(/\+/g, " "));
     });
+
+    // Razorpay auto-renew subscription (UPI Autopay or card mandate).
+    if (params.kind === "rzsub") {
+      if (!/^sub_[A-Za-z0-9]+$/.test(params.sub || "") || !/^rzp_(live|test)_[A-Za-z0-9]+$/.test(params.key || "")) return fail();
+      document.getElementById("processor").textContent = "Auto-pay is set up securely by Razorpay. Don't close this tab.";
+      var back = "/app/?billing=" + encodeURIComponent(params.sub);
+      load("https://checkout.razorpay.com/v1/checkout.js", function () {
+        if (typeof Razorpay !== "function") return fail();
+        function open() {
+          show("loading");
+          var rzp = new Razorpay({
+            key: params.key,
+            subscription_id: params.sub,
+            name: "Brandzy",
+            description: params.desc || "Brandzy plan",
+            image: location.origin + "/assets/icon.png",
+            theme: { color: "#FD6500" },
+            handler: function () { location.replace(back); },
+            modal: { ondismiss: function () { show("closed"); } }
+          });
+          rzp.on("payment.failed", function () { /* Checkout shows the reason and lets them retry. */ });
+          rzp.open();
+        }
+        document.getElementById("retry").onclick = open;
+        open();
+      });
+      return;
+    }
+
+    // Cashfree one-time order (or a legacy Cashfree subscription).
     var mode = params.mode === "production" ? "production" : "sandbox";
     if (!params.session || (params.kind !== "order" && params.kind !== "subscription")) return fail();
-    if (typeof Cashfree !== "function") return fail("The payment page didn't load. Check your connection and try again from Brandzy.");
-    try {
-      var cashfree = Cashfree({ mode: mode });
-      var opened = params.kind === "subscription"
-        ? cashfree.subscriptionsCheckout({ subsSessionId: params.session, redirectTarget: "_self" })
-        : cashfree.checkout({ paymentSessionId: params.session, redirectTarget: "_self" });
-      if (opened && typeof opened.then === "function") {
-        opened.then(function (result) {
-          if (result && result.error) fail(result.error.message);
-        });
+    load("https://sdk.cashfree.com/js/v3/cashfree.js", function () {
+      if (typeof Cashfree !== "function") return fail("The payment page didn't load. Check your connection and try again from Brandzy.");
+      try {
+        var cashfree = Cashfree({ mode: mode });
+        var opened = params.kind === "subscription"
+          ? cashfree.subscriptionsCheckout({ subsSessionId: params.session, redirectTarget: "_self" })
+          : cashfree.checkout({ paymentSessionId: params.session, redirectTarget: "_self" });
+        if (opened && typeof opened.then === "function") {
+          opened.then(function (result) {
+            if (result && result.error) fail(result.error.message);
+          });
+        }
+      } catch (e) {
+        fail();
       }
-    } catch (e) {
-      fail();
-    }
+    });
   })();
 </script>
 </body>
