@@ -44,7 +44,7 @@
             if (!started || Date.now() - started > 2 * 60 * 60 * 1000) return null;
             if (!/[?&](billing|instagram|social)=/.test(location.search)) return null;
             try { localStorage.removeItem('brandzy_android_return'); } catch (e) {}
-            return 'intent://return' + location.search + '#Intent;scheme=brandzy;package=com.creatoros.app;end';
+            return 'intent://return' + location.search + '#Intent;scheme=brandzy;package=com.brandzy.app;end';
         })();
         if (androidReturnLink) {
             var loader = document.getElementById('bootLoader');
