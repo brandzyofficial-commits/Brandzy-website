@@ -25,6 +25,7 @@
                 var u = new URL(to);
                 ok = u.protocol === 'https:' && (
                     (u.hostname === 'brandzy.app' && u.pathname === '/pay.html') ||
+                    u.hostname === 'rzp.io' ||
                     (u.hostname === 'www.instagram.com' && u.pathname.indexOf('/oauth/') === 0) ||
                     (/^[a-z0-9]+\.supabase\.co$/.test(u.hostname) && u.pathname.indexOf('/functions/v1/social-auth') === 0));
             } catch (e) {}
