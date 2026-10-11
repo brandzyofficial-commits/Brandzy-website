@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="en-IN">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-5C2B6BQRZX"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-5C2B6BQRZX');
+</script>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Child Safety Standards — Brandzy</title>
+<meta name="description" content="Brandzy's standards against child sexual abuse and exploitation (CSAE), how to report a concern, and our child safety contact." />
+<link rel="canonical" href="https://brandzy.app/child-safety" />
+<meta property="og:site_name" content="Brandzy" />
+<meta property="og:title" content="Child Safety Standards — Brandzy" />
+<meta property="og:description" content="Brandzy's standards against child sexual abuse and exploitation (CSAE), how to report a concern, and our child safety contact." />
+<meta property="og:url" content="https://brandzy.app/child-safety" />
+<meta property="og:image" content="https://brandzy.app/og-image.png" />
+<meta name="twitter:card" content="summary_large_image" />
+<link rel="icon" type="image/png" href="assets/favicon.png" />
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="legal-shared.css">
+</head>
+<body>
+
+<header>
+  <nav>
+    <a class="logo" href="/"><img class="logo-mark" src="assets/icon.png" alt="Brandzy" />Brandzy</a>
+    <a href="/" class="btn">← Back to home</a>
+  </nav>
+</header>
+
+<main class="wrap legal">
+  <h1>Child Safety Standards</h1>
+  <p class="updated">Last updated: 12 October 2026 — Applies to Brandzy (brandzy.app and the Brandzy Android app by Tharun Tech Solutions).</p>
+
+  <h2>1. Zero tolerance for child sexual abuse and exploitation</h2>
+  <p>Brandzy has zero tolerance for child sexual abuse and exploitation (CSAE) and child sexual abuse material (CSAM). It is never allowed anywhere on Brandzy: not on public creator pages, media kits or stores, not in products, courses, files or links, not in emails sent through Brandzy, and not in Auto DM messages.</p>
+  <p>This includes, but is not limited to:</p>
+  <ul>
+    <li>Any image, video, text or other material that sexualises a minor, real or computer-generated;</li>
+    <li>Grooming, sexual solicitation or sextortion of minors;</li>
+    <li>Selling, sharing, linking to or advertising CSAM, or content that promotes or normalises the sexual abuse of children;</li>
+    <li>Trafficking or any other exploitation of minors.</li>
+  </ul>
+
+  <h2>2. Who can use Brandzy</h2>
+  <p>Brandzy accounts are only for people aged 18 or over. We do not knowingly allow minors to create accounts, and we close any account we find that belongs to someone under 18.</p>
+
+  <h2 id="report">3. How to report a concern</h2>
+  <p>Anyone can report a child safety concern, with or without a Brandzy account:</p>
+  <ul>
+    <li><strong>In the Brandzy app:</strong> Settings → <strong>Report a safety concern</strong>.</li>
+    <li><strong>On any creator's public Brandzy page:</strong> tap <strong>Report this page</strong> at the bottom.</li>
+    <li><strong>By email:</strong> <a id="report-mail" href="mailto:info@brandzy.app?subject=Child%20safety%20report">info@brandzy.app</a> with the subject "Child safety report". Include the link to the page, product or message, and what you saw. Please do not attach or forward the material itself.</li>
+  </ul>
+  <p>If a child is in immediate danger, contact the police first (112 in India). You can also report directly to the <a href="https://cybercrime.gov.in/" rel="noopener">National Cyber Crime Reporting Portal</a> (India) or the <a href="https://report.cybertip.org/" rel="noopener">NCMEC CyberTipline</a> (international).</p>
+
+  <h2>4. What we do with a report</h2>
+  <ul>
+    <li>We treat child safety reports as our highest priority and aim to review them within 24 hours.</li>
+    <li>We take the reported page, product or content offline straight away while we review it.</li>
+    <li>When we confirm CSAE or CSAM, we remove the content, permanently close the account and block it from signing up again.</li>
+    <li>We report confirmed CSAM and child exploitation to the relevant authorities, including the National Cyber Crime Reporting Portal and law enforcement in India and NCMEC where applicable, and we preserve the information they need, as the law requires.</li>
+    <li>We cooperate fully with law enforcement requests.</li>
+  </ul>
+
+  <h2>5. Laws we follow</h2>
+  <p>Brandzy complies with all child safety laws that apply to it, including India's Protection of Children from Sexual Offences (POCSO) Act, 2012, the Information Technology Act, 2000 (including section 67B) and the Information Technology (Intermediary Guidelines and Digital Media Ethics Code) Rules, 2021, as well as Google Play's child safety standards.</p>
+
+  <h2>6. Child safety contact</h2>
+  <p>Our designated contact for child safety, CSAM prevention and compliance is the Brandzy team at <a href="mailto:info@brandzy.app?subject=Child%20safety">info@brandzy.app</a>, phone <a href="tel:+916300967265">+91 63009 67265</a>.</p>
+  <p>Tharun Tech Solutions, 3-4-696/1, Om Sai Colony, Hanamkonda, Warangal – 506001, Telangana, India.</p>
+</main>
+
+<script>
+  // "Report this page" links pass the creator's page; put it in the email.
+  (function () {
+    var page = new URLSearchParams(location.search).get("page");
+    if (!page || !/^[A-Za-z0-9_.-]{1,60}$/.test(page)) return;
+    var a = document.getElementById("report-mail");
+    a.href = "mailto:info@brandzy.app?subject=" + encodeURIComponent("Child safety report: brandzy.app/app/#/" + page)
+      + "&body=" + encodeURIComponent("Page: https://brandzy.app/app/#/" + page + "
+
+What I saw:
+");
+  })();
+</script>
+
+</main>
+
+<footer>
+  <div class="footer-wrap">
+    <div class="logo"><img class="logo-mark" src="assets/icon.png" alt="Brandzy" />Brandzy</div>
+    <div class="footer-links">
+      <a href="/terms">Terms &amp; Conditions</a>
+      <a href="/privacy">Privacy Policy</a>
+      <a href="/child-safety">Child Safety Standards</a>
+      <a href="/refund-policy">Refund &amp; Cancellation</a>
+      <a href="/shipping-delivery">Shipping &amp; Delivery</a>
+      <a href="/pricing">Pricing</a>
+      <a href="/stan-store-alternative">Brandzy vs Stan Store</a>
+      <a href="/link-in-bio-tools-india">Link-in-bio tools for Indian creators</a>
+      <a href="/contact">Contact</a>
+    </div>
+    <div class="footer-copy">© 2026 Brandzy · Managed by Tharun Tech Solutions · 3-4-696/1, Om Sai Colony, Hanamkonda, Warangal – 506001, Telangana, India</div>
+  </div>
+</footer>
+
+</body>
+</html>

@@ -14,4 +14,8 @@
   <url><loc>https://brandzy.app/shipping-delivery</loc><lastmod>2026-10-05</lastmod><priority>0.3</priority></url>
   <url><loc>https://brandzy.app/data-deletion</loc><lastmod>2026-10-05</lastmod><priority>0.3</priority></url>
   <url><loc>https://brandzy.app/delete-account</loc><lastmod>2026-10-12</lastmod><priority>0.3</priority></url>
+  <url>
+    <loc>https://brandzy.app/child-safety</loc>
+    <lastmod>2026-10-12</lastmod>
+  </url>
 </urlset>
