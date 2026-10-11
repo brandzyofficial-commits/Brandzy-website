@@ -1,6 +1,6 @@
 # Brandzy
 
-> Brandzy is a web app for independent creators and influencers, built in India, that puts brand deals, invoices, a client CRM, deliverables, a live media kit and a creator storefront behind one shareable link. It is a flat monthly price, paid in prepaid packs, with a 7-day free trial and no commission on creator earnings.
+> Brandzy is a web app for independent creators and influencers, built in India, that puts brand deals, invoices, a client CRM, deliverables, a live media kit and a creator storefront behind one shareable link. It is a flat monthly price, paid in packs of 1-12 months (once or on auto-renew), with a 7-day free trial and no commission on creator earnings.
 
 Brandzy is managed by Tharun Tech Solutions, a sole proprietorship based in Hanamkonda, Warangal, Telangana, India. Contact: info@brandzy.app, +91 63009 67265.
 
@@ -23,7 +23,7 @@ Brandzy is managed by Tharun Tech Solutions, a sole proprietorship based in Hana
 - Growth: ₹999/month in India. Store with UPI checkout, courses, media kit, brand deals, CRM, invoices, email list, 1 Auto DM rule.
 - Pro: ₹1,999/month in India. Everything in Growth plus email broadcasts and automations, unlimited Auto DM rules, verified YouTube and Instagram stats, and priority support; advanced analytics, team seats and custom domains are coming soon.
 - No transaction fee or commission: payments from brands and customers go directly to the creator.
-- Indian creators pay through Cashfree Payments (UPI, cards, net banking): prepaid packs of 1, 3, 6 or 12 months (12 months costs the same as 10). No auto-debit; 14-day refund window.
+- Indian creators pay in packs of 1, 3, 6 or 12 months (12 months costs the same as 10): once through Cashfree Payments (UPI, cards, net banking), or on auto-renew through Razorpay (UPI Autopay or card), which can be turned off any time. 14-day refund window on every charge.
 
 ## Who it's for
 YouTubers, Instagram creators and other influencers, mainly in India, who work with brands and want to replace spreadsheets, chat threads and invoice templates with one tool.
