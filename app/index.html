@@ -17,20 +17,61 @@
     <style>
         html, body { margin: 0; padding: 0; height: 100%; overflow: hidden; }
         #composeApplication { width: 100%; height: 100%; }
+        #bootLoader { position: fixed; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center;
+            gap: 16px; background: #F6F6F8; font: 15px/1.4 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; color: #444; z-index: 10; }
+        #bootLoader img { width: 64px; height: 64px; border-radius: 50%; animation: bootPulse 1.4s ease-in-out infinite; }
+        #bootLoader button { display: none; border: 0; border-radius: 999px; padding: 10px 22px; background: #FD6500; color: #fff;
+            font: inherit; font-weight: 600; cursor: pointer; }
+        #bootLoader.stuck button { display: block; }
+        @keyframes bootPulse { 50% { transform: scale(0.9); opacity: 0.7; } }
+        @media (prefers-color-scheme: dark) { #bootLoader { background: #121418; color: #ccc; } }
     </style>
 </head>
 <body>
     <div id="composeApplication"></div>
+    <!-- Shown until the app draws its first screen; offers a reload if loading fails or stalls. -->
+    <div id="bootLoader">
+        <img src="favicon.png" alt="">
+        <span id="bootText">Loading Brandzy…</span>
+        <button type="button" onclick="bootReload()">Reload</button>
+    </div>
     <script>
+        function bootStuck(message) {
+            var loader = document.getElementById('bootLoader');
+            if (!loader) return;
+            document.getElementById('bootText').textContent = message;
+            loader.className = 'stuck';
+        }
+        function bootReload() {
+            fetch('composeApp.js', { cache: 'reload' }).catch(function () {}).then(function () { location.reload(); });
+        }
+        new MutationObserver(function (changes, observer) {
+            if (document.querySelector('#composeApplication canvas, #composeApplication *')) {
+                var loader = document.getElementById('bootLoader');
+                if (loader) loader.remove();
+                observer.disconnect();
+            }
+        }).observe(document.getElementById('composeApplication'), { childList: true, subtree: true });
+        setTimeout(function () { bootStuck('This is taking longer than usual.'); }, 25000);
         window.addEventListener('error', function (e) {
             console.error('GLOBAL ERROR', e.error || e.message);
         });
         window.addEventListener('unhandledrejection', function (e) {
             console.error('UNHANDLED REJECTION', e.reason);
+            bootStuck("Brandzy couldn't load. Check your connection and reload.");
         });
     </script>
     <!-- Draws the UPI payment QR on the checkout page. -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js" defer></script>
-    <script src="composeApp.js"></script>
+    <!-- composeApp.js names the current .wasm files, so revalidate it before running it: a copy
+         cached before an update would ask for .wasm files the update removed (blank page). -->
+    <script>
+        fetch('composeApp.js', { cache: 'no-cache' }).catch(function () {}).then(function () {
+            var script = document.createElement('script');
+            script.src = 'composeApp.js';
+            script.onerror = function () { bootStuck("Brandzy couldn't load. Check your connection and reload."); };
+            document.body.appendChild(script);
+        });
+    </script>
 </body>
 </html>

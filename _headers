@@ -9,3 +9,14 @@
 
 /app/*
   X-Robots-Tag: noindex
+
+# The app's loader script and page name the current (hashed) .wasm files, so they must never be
+# served from cache: a stale copy asks for .wasm files an update removed and the page stays blank.
+/app/
+  Cache-Control: no-cache
+
+/app/index.html
+  Cache-Control: no-cache
+
+/app/composeApp.js
+  Cache-Control: no-cache
