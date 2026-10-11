@@ -22,7 +22,7 @@
         #bootLoader img { width: 64px; height: 64px; border-radius: 50%; animation: bootPulse 1.4s ease-in-out infinite; }
         #bootLoader button { display: none; border: 0; border-radius: 999px; padding: 10px 22px; background: #FD6500; color: #fff;
             font: inherit; font-weight: 600; cursor: pointer; }
-        #bootLoader.stuck button { display: block; }
+        #bootLoader.stuck button, #bootLoader.app button { display: block; }
         @keyframes bootPulse { 50% { transform: scale(0.9); opacity: 0.7; } }
         @media (prefers-color-scheme: dark) { #bootLoader { background: #121418; color: #ccc; } }
     </style>
@@ -36,7 +36,29 @@
         <button type="button" onclick="bootReload()">Reload</button>
     </div>
     <script>
+        // Payment or Instagram / YouTube sign-in that started in the Brandzy Android app (it went through
+        // handoff.html): hand the result back to the app instead of loading the web app here.
+        var androidReturnLink = (function () {
+            var started = 0;
+            try { started = Number(localStorage.getItem('brandzy_android_return')) || 0; } catch (e) {}
+            if (!started || Date.now() - started > 2 * 60 * 60 * 1000) return null;
+            if (!/[?&](billing|instagram|social)=/.test(location.search)) return null;
+            try { localStorage.removeItem('brandzy_android_return'); } catch (e) {}
+            return 'intent://return' + location.search + '#Intent;scheme=brandzy;package=com.creatoros.app;end';
+        })();
+        if (androidReturnLink) {
+            var loader = document.getElementById('bootLoader');
+            loader.className = 'app';
+            document.getElementById('bootText').textContent = /[?&]billing=/.test(location.search)
+                ? 'Payment done. Go back to the Brandzy app to see your plan.'
+                : 'Done. Go back to the Brandzy app to finish.';
+            var back = loader.querySelector('button');
+            back.textContent = 'Open the Brandzy app';
+            back.onclick = function () { location.href = androidReturnLink; };
+            location.href = androidReturnLink;
+        }
         function bootStuck(message) {
+            if (androidReturnLink) return;
             var loader = document.getElementById('bootLoader');
             if (!loader) return;
             document.getElementById('bootText').textContent = message;
@@ -66,7 +88,7 @@
     <!-- composeApp.js names the current .wasm files, so revalidate it before running it: a copy
          cached before an update would ask for .wasm files the update removed (blank page). -->
     <script>
-        fetch('composeApp.js', { cache: 'no-cache' }).catch(function () {}).then(function () {
+        if (!androidReturnLink) fetch('composeApp.js', { cache: 'no-cache' }).catch(function () {}).then(function () {
             var script = document.createElement('script');
             script.src = 'composeApp.js';
             script.onerror = function () { bootStuck("Brandzy couldn't load. Check your connection and reload."); };

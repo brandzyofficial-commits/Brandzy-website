@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Brandzy</title>
+    <meta name="robots" content="noindex">
+    <link rel="icon" type="image/png" href="favicon.png">
+    <style>
+        body { margin: 0; min-height: 100vh; display: flex; align-items: center; justify-content: center;
+            background: #F6F6F8; color: #444; font: 15px/1.4 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+        @media (prefers-color-scheme: dark) { body { background: #121418; color: #ccc; } }
+    </style>
+</head>
+<body>
+    <p id="msg">Opening…</p>
+    <script>
+        // The Brandzy Android app opens payment and Instagram / YouTube sign-in through this page
+        // (handoff.html#to=<url>). It notes that the trip started in the app, so that when the browser
+        // lands back on /app/?billing=… (or ?instagram= / ?social=), index.html sends it to the app.
+        (function () {
+            var to = decodeURIComponent((location.hash.match(/^#to=(.+)$/) || [])[1] || '');
+            var ok = false;
+            try {
+                var u = new URL(to);
+                ok = u.protocol === 'https:' && (
+                    (u.hostname === 'brandzy.app' && u.pathname === '/pay.html') ||
+                    (u.hostname === 'www.instagram.com' && u.pathname.indexOf('/oauth/') === 0) ||
+                    (/^[a-z0-9]+\.supabase\.co$/.test(u.hostname) && u.pathname.indexOf('/functions/v1/social-auth') === 0));
+            } catch (e) {}
+            if (!ok) {
+                document.getElementById('msg').textContent = 'This link is not valid. Go back to the Brandzy app and try again.';
+                return;
+            }
+            try { localStorage.setItem('brandzy_android_return', String(Date.now())); } catch (e) {}
+            location.replace(to);
+        })();
+    </script>
+</body>
+</html>
