@@ -16,7 +16,7 @@ Brandzy is managed by Tharun Tech Solutions, a sole proprietorship based in Hana
 - Course builder and email list on every plan; email broadcasts and email automations (welcome series, after-purchase follow-ups) on Pro.
 - Instagram Auto DM: sends a creator's link by DM when someone comments or messages a keyword (1 active rule on Growth, unlimited on Pro; rolling out after Instagram app review).
 - Verified stats on Pro: YouTube and Instagram numbers sync daily and show a "Verified" badge on the media kit.
-- Works in any web browser on phone or desktop. An Android app is coming soon to Google Play (same account and plan); on iPhone it can be added to the home screen like an app. An iPhone app is planned.
+- Works in any web browser on phone or desktop. The Android app is on Google Play (https://play.google.com/store/apps/details?id=com.brandzy.app, same account and plan); on iPhone it can be added to the home screen like an app. An iPhone app is planned.
 
 ## Pricing
 - One 7-day free trial per creator with every Pro feature; nothing is charged automatically.
