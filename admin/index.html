@@ -74,6 +74,12 @@ dd { overflow-wrap: anywhere; }
 .login input { width: 100%; margin-top: 8px; }
 .login .btn { width: 100%; margin-top: 12px; padding: 9px; }
 .hidden { display: none !important; }
+.login input[inputmode=numeric] { letter-spacing: 6px; font-size: 20px; text-align: center; }
+.qr { display: block; width: 200px; height: 200px; margin: 12px auto; background: #fff; border-radius: 8px; padding: 6px; }
+.secret { display: flex; gap: 8px; align-items: center; margin-top: 8px; }
+.secret code { flex: 1; min-width: 0; word-break: break-all; font-size: 12px; }
+.login .secret .btn { width: auto; margin-top: 0; padding: 7px 14px; }
+.linkbtn { background: none; border: 0; color: var(--dim); text-decoration: underline; cursor: pointer; margin-top: 10px; width: 100%; }
 .back { background: none; border: 0; color: var(--brand-dark); cursor: pointer; font-weight: 600; margin-bottom: 10px; }
 .actions .card { display: flex; flex-direction: column; gap: 8px; }
 .actions label { font-size: 12px; color: var(--dim); font-weight: 600; }
@@ -91,6 +97,23 @@ pre { white-space: pre-wrap; font-size: 12px; color: var(--dim); }
     <button class="btn primary" type="submit">Sign in</button>
   </form>
   <p id="loginErr" class="err"></p>
+</div>
+
+<div id="mfa" class="login card hidden">
+  <h2 id="mfaTitle">Two-factor code</h2>
+  <div id="mfaEnroll" class="hidden">
+    <p class="muted">2FA is required for the admin. Scan this QR code with an authenticator app (Google Authenticator, Authy, 1Password…), then enter the 6-digit code it shows.</p>
+    <img id="mfaQr" class="qr" alt="QR code for your authenticator app" />
+    <p class="muted">Can't scan? Type this key into the app instead:</p>
+    <div class="secret"><code id="mfaSecret"></code><button class="btn" type="button" id="mfaCopy">Copy</button></div>
+  </div>
+  <p id="mfaPrompt" class="muted hidden">Enter the 6-digit code from your authenticator app.</p>
+  <form id="mfaForm">
+    <input id="mfaCode" type="text" inputmode="numeric" autocomplete="one-time-code" pattern="[0-9]{6}" maxlength="6" placeholder="123456" required />
+    <button class="btn primary" type="submit" id="mfaSubmit">Verify</button>
+  </form>
+  <p id="mfaErr" class="err"></p>
+  <button class="linkbtn" type="button" id="mfaSignOut">Sign out</button>
 </div>
 
 <div id="shell" class="hidden">
@@ -137,24 +160,89 @@ async function api(action, params = {}) {
   });
   const body = await res.json().catch(() => ({}));
   if (res.status === 401) { await sb.auth.signOut(); showLogin("Your session ended. Please sign in again."); }
+  if (res.status === 403 && body.code === "mfa_required") { startMfa(); throw Object.assign(new Error(body.error), { mfa: true }); }
   if (!res.ok) throw new Error(body.error || `Request failed (${res.status})`);
   return body;
 }
 
 function showLogin(message = "") {
   $("shell").classList.add("hidden");
+  $("mfa").classList.add("hidden");
   $("login").classList.remove("hidden");
   $("loginErr").textContent = message;
 }
 
+// 2FA (TOTP) is mandatory: admin-api only answers aal2 sessions. After the password, either enrol an
+// authenticator (first time) or ask for its code, then open the dashboard.
+let mfaFactorId = null;
+
+async function startMfa() {
+  $("login").classList.add("hidden");
+  $("shell").classList.add("hidden");
+  $("mfa").classList.remove("hidden");
+  $("mfaErr").textContent = "";
+  $("mfaCode").value = "";
+  try {
+    const { data: factors, error } = await sb.auth.mfa.listFactors();
+    if (error) throw error;
+    const verified = factors.totp.find((f) => f.status === "verified");
+    if (verified) {
+      mfaFactorId = verified.id;
+      $("mfaTitle").textContent = "Two-factor code";
+      $("mfaEnroll").classList.add("hidden");
+      $("mfaPrompt").classList.remove("hidden");
+    } else {
+      // Drop half-finished enrolments from an earlier attempt, then start a fresh one.
+      for (const f of factors.all.filter((f) => f.factor_type === "totp" && f.status !== "verified")) {
+        await sb.auth.mfa.unenroll({ factorId: f.id });
+      }
+      const { data, error: enrollError } = await sb.auth.mfa.enroll({ factorType: "totp", friendlyName: `Brandzy Admin ${Date.now()}` });
+      if (enrollError) throw enrollError;
+      mfaFactorId = data.id;
+      $("mfaQr").src = data.totp.qr_code;
+      $("mfaSecret").textContent = data.totp.secret;
+      $("mfaTitle").textContent = "Set up 2FA";
+      $("mfaPrompt").classList.add("hidden");
+      $("mfaEnroll").classList.remove("hidden");
+    }
+    $("mfaCode").focus();
+  } catch (e) {
+    $("mfaErr").textContent = e.message;
+  }
+}
+
+function clearEnrollment() {
+  $("mfaQr").removeAttribute("src");
+  $("mfaSecret").textContent = "";
+}
+
+$("mfaForm").addEventListener("submit", async (ev) => {
+  ev.preventDefault();
+  $("mfaErr").textContent = "";
+  if (!mfaFactorId) { startMfa(); return; }
+  $("mfaSubmit").disabled = true;
+  const { error } = await sb.auth.mfa.challengeAndVerify({ factorId: mfaFactorId, code: $("mfaCode").value.trim() });
+  $("mfaSubmit").disabled = false;
+  $("mfaCode").value = "";
+  if (error) { $("mfaErr").textContent = error.message; return; }
+  clearEnrollment();
+  enter();
+});
+$("mfaCopy").addEventListener("click", () => navigator.clipboard.writeText($("mfaSecret").textContent).then(() => { $("mfaCopy").textContent = "Copied"; }));
+$("mfaSignOut").addEventListener("click", async () => { clearEnrollment(); await sb.auth.signOut(); showLogin(); });
+
 async function enter() {
+  const { data: level } = await sb.auth.mfa.getAuthenticatorAssuranceLevel();
+  if (level?.currentLevel !== "aal2") { startMfa(); return; }
   try {
     const me = await api("me");
     $("whoami").textContent = me.email;
     $("login").classList.add("hidden");
+    $("mfa").classList.add("hidden");
     $("shell").classList.remove("hidden");
     go(location.hash.slice(1) || "overview");
   } catch (e) {
+    if (e.mfa) return;
     await sb.auth.signOut();
     showLogin(e.message);
   }
