@@ -28,6 +28,10 @@
           color: #fff; text-decoration: none; font-weight: 700; font-size: 15px; cursor: pointer; margin: 4px; }
   a.link { color: var(--muted); font-size: 14px; }
   .hidden { display: none; }
+  .terms { text-align: left; border: 1px solid var(--border); border-radius: 12px; padding: 14px 16px; margin: 0 0 16px; }
+  .terms .row { display: flex; justify-content: space-between; gap: 12px; font-weight: 700; margin-bottom: 8px; }
+  .terms ul { margin: 0; padding-left: 18px; color: var(--muted); font-size: 14px; line-height: 1.5; }
+  .terms li { margin-bottom: 6px; }
 </style>
 </head>
 <body>
@@ -37,6 +41,15 @@
     <div class="spinner" aria-hidden="true"></div>
     <h1>Opening secure checkout…</h1>
     <p id="processor">Payments are processed by Cashfree Payments. Don't close this tab.</p>
+  </div>
+  <div id="review" class="hidden">
+    <h1>Review your plan</h1>
+    <div class="terms">
+      <div class="row"><span id="t-plan"></span><span id="t-price"></span></div>
+      <ul id="t-list"></ul>
+    </div>
+    <button id="go" class="btn" type="button">Continue to Razorpay</button>
+    <p><a class="link" href="/app/">Back to Brandzy</a></p>
   </div>
   <div id="closed" class="hidden">
     <h1>Checkout closed</h1>
@@ -53,7 +66,7 @@
 <script>
   (function () {
     function show(id) {
-      ["loading", "closed", "failed"].forEach(function (s) {
+      ["loading", "review", "closed", "failed"].forEach(function (s) {
         document.getElementById(s).classList.toggle("hidden", s !== id);
       });
     }
@@ -97,7 +110,28 @@
           rzp.open();
         }
         document.getElementById("retry").onclick = open;
-        open();
+        if (!params.price) return open();
+        // The plan's terms before Razorpay, whose amount is only its mandate check when the first charge is later.
+        document.getElementById("t-plan").textContent = params.plan || "Brandzy plan";
+        document.getElementById("t-price").textContent = params.price + " / " + (params.every || "month");
+        var items = [];
+        if (params.trial && params.first) {
+          items.push("Free trial until " + params.first + ". Your first payment of " + params.price + " is on " + params.first + ".");
+        } else if (params.first) {
+          items.push("Your first payment of " + params.price + " is on " + params.first + ", when your current plan or trial ends.");
+        } else {
+          items.push(params.price + " is charged today.");
+        }
+        items.push("Then " + params.price + " every " + (params.every || "month") + " until you cancel.");
+        items.push("Cancel any time in Brandzy: Settings → Plan → Turn off auto-renew" +
+          (params.first ? ". Cancel before " + params.first + " and you pay nothing." : "."));
+        if (params.first && params.check) {
+          items.push("Razorpay's next screen shows " + params.check + ": a check that auto-pay works, refunded automatically. It is not your plan price.");
+        }
+        var list = document.getElementById("t-list");
+        items.forEach(function (text) { var li = document.createElement("li"); li.textContent = text; list.appendChild(li); });
+        document.getElementById("go").onclick = open;
+        show("review");
       });
       return;
     }
