@@ -62,6 +62,7 @@
         '.bz-guide ol{margin:0 0 16px;padding-left:22px}' +
         '.bz-guide li{margin:8px 0}' +
         '.bz-guide .bz-ico{display:inline-block;vertical-align:-4px;width:20px;height:20px}' +
+        '.bz-guide-more{margin:-6px 0 14px;font-size:14px}.bz-guide-more a{color:#e8431f;font-weight:600}' +
         '.bz-guide button{width:100%;padding:12px;border:0;border-radius:12px;background:#FF5B37;color:#fff;font:600 15px system-ui,sans-serif;cursor:pointer}';
     var style = document.createElement('style');
     style.textContent = css;
@@ -77,11 +78,14 @@
     }
     function showGuide() {
         closeGuide();
-        var steps;
+        var steps, more = '';
         if (isIos()) {
-            steps = '<li>Tap the <b>Share</b> button ' + shareIcon + ' in Safari’s toolbar.</li>' +
+            steps = '<li>Tap the <b>Share</b> button ' + shareIcon + ' in Safari’s toolbar (on newer iPhones, tap <b>•••</b> first).</li>' +
                 '<li>Scroll down and tap <b>Add to Home Screen</b>.</li>' +
                 '<li>Tap <b>Add</b>. Brandzy appears on your home screen like an app.</li>';
+            if (location.pathname.indexOf('/iphone') !== 0) {
+                more = '<p class="bz-guide-more"><a href="' + BASE + 'iphone">See the steps with pictures</a></p>';
+            }
         } else if (isMobile()) {
             steps = '<li>Open your browser menu ' + menuIcon + ' (top-right).</li>' +
                 '<li>Tap <b>Install app</b> or <b>Add to Home screen</b>.</li>' +
@@ -95,9 +99,9 @@
         guide.innerHTML = '<div class="bz-guide" role="dialog" aria-modal="true" aria-label="Add Brandzy to your home screen">' +
             '<div class="bz-guide-head"><img src="' + BASE + 'assets/pwa-maskable-192.png" alt=""><div><b>Add Brandzy to your home screen</b>' +
             '<span>Opens full screen, no app store needed</span></div></div>' +
-            '<ol>' + steps + '</ol><button type="button">Got it</button></div>';
+            '<ol>' + steps + '</ol>' + more + '<button type="button">Got it</button></div>';
         guide.addEventListener('click', function (e) {
-            if (e.target === guide || e.target.tagName === 'BUTTON') closeGuide();
+            if (e.target === guide || e.target.tagName === 'BUTTON' || e.target.tagName === 'A') closeGuide();
         });
         document.body.appendChild(guide);
     }
@@ -131,7 +135,7 @@
             fab.className = 'bz-install-fab';
             fab.setAttribute('aria-label', 'Add Brandzy to Home Screen');
             fab.innerHTML = '<img src="' + BASE + 'assets/pwa-192.png" alt="">' +
-                '<span>Add to Home Screen</span><span class="bz-x" aria-label="Hide" role="button">×</span>';
+                '<span>' + (isIos() ? 'Get Brandzy for iPhone' : 'Add to Home Screen') + '</span><span class="bz-x" aria-label="Hide" role="button">×</span>';
             fab.addEventListener('click', function (e) {
                 if (e.target.classList.contains('bz-x')) {
                     try { sessionStorage.setItem(DISMISS_KEY, '1'); } catch (err) {}

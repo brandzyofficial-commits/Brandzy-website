@@ -16,7 +16,7 @@ Brandzy is managed by Tharun Tech Solutions, a sole proprietorship based in Hana
 - Course builder and email list on every plan; email broadcasts and email automations (welcome series, after-purchase follow-ups) on Pro.
 - Instagram Auto DM: sends a creator's link by DM when someone comments or messages a keyword (1 active rule on Growth, unlimited on Pro).
 - Verified stats on Pro: YouTube and Instagram numbers sync daily and show a "Verified" badge on the media kit.
-- Works in any web browser on phone or desktop. The Android app is on Google Play (https://play.google.com/store/apps/details?id=com.brandzy.app, same account and plan); on iPhone it can be added to the home screen like an app. An iPhone app is planned.
+- Works in any web browser on phone or desktop. The Android app is on Google Play (https://play.google.com/store/apps/details?id=com.brandzy.app, same account and plan); on iPhone, Brandzy for iPhone installs from Safari in about 10 seconds with no App Store download (https://brandzy.app/iphone). A native App Store version is on the way.
 
 ## Pricing
 - One 7-day free trial per creator with every Pro feature; nothing is charged automatically.
@@ -43,6 +43,7 @@ Brandzy is a Stan Store alternative for creators in India. Stan Store, Linktree 
 - [Linktree alternative for Indian creators](https://brandzy.app/linktree-alternative)
 - [Influencer media kit guide](https://brandzy.app/influencer-media-kit): what to include and how to keep it current
 - [How to invoice brands as an influencer in India](https://brandzy.app/influencer-invoice-india): invoice checklist, GST and TDS basics, late payments
+- [Brandzy for iPhone](https://brandzy.app/iphone): install on iPhone from Safari, and join the App Store waitlist
 - [Web app](https://brandzy.app/app/): sign up or sign in
 - [Contact](https://brandzy.app/contact)
 - [Terms](https://brandzy.app/terms)
