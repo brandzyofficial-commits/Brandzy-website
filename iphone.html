@@ -60,6 +60,11 @@
   .hero-cta .btn { padding: 13px 22px; font-size: 15px; }
   .status { margin-top: 14px; padding: 12px 14px; border-radius: 12px; font-size: 14px; line-height: 1.5; background: #f8fafc; border: 1px solid var(--border); color: var(--text-dim); }
   .status[hidden] { display: none; }
+  .status.qr { display: flex; gap: 16px; align-items: center; background: #fff; }
+  .status.qr img { flex: none; border-radius: 8px; border: 1px solid var(--border); }
+  .status.qr b { display: block; color: var(--text); font-size: 15px; margin-bottom: 2px; }
+  .status.qr .qr-alt { display: inline-block; margin-top: 6px; font-size: 13px; color: var(--text-faint); }
+  .status.qr .qr-alt b { display: inline; font-size: 13px; color: var(--text-dim); }
   .status.warn { background: #fffbeb; border-color: #fde68a; color: #78350f; }
   .status.ok { background: #f0fdf4; border-color: #bbf7d0; color: #14532d; }
   .status button { margin-top: 8px; padding: 8px 14px; border: 0; border-radius: 999px; background: var(--text); color: #fff; font: inherit; font-weight: 600; font-size: 13px; cursor: pointer; }
@@ -141,7 +146,7 @@
       <h1>Get Brandzy on your iPhone in 10 seconds</h1>
       <p class="lede">No App Store, no download. Add Brandzy to your home screen from Safari and it opens full screen, with its own icon, just like an app.</p>
       <div class="hero-cta">
-        <a class="btn" href="/app/" id="open-btn">Open Brandzy in Safari</a>
+        <a class="btn" href="/app/" id="open-btn">Install Brandzy</a>
         <a class="btn btn-ghost" href="#steps">How to install</a>
       </div>
       <div class="status" id="status" hidden></div>
@@ -304,6 +309,8 @@
   } else if (iosTooOld) {
     // The app is Kotlin/Wasm and needs WasmGC, which Safari has from iOS 18.2.
     show('warn', '<b>Brandzy needs iOS 18.2 or later</b> and this iPhone is on iOS ' + iosVersion + '. Update it in <b>Settings › General › Software Update</b>, then come back to this page. Or join the waitlist below.');
+    openBtn.textContent = 'Join the waitlist';
+    openBtn.href = '#waitlist';
   } else if (ios) {
     if (otherIosBrowser) {
       show('', 'Tip: installing works best from <b>Safari</b>. In Chrome you can also tap Share and choose Add to Home Screen.');
@@ -314,9 +321,17 @@
     });
   } else if (android) {
     show('', '<b>On Android?</b> Get the Brandzy app from <a href="https://play.google.com/store/apps/details?id=com.brandzy.app">Google Play</a> instead.');
+    openBtn.textContent = 'Get it on Google Play';
+    openBtn.href = 'https://play.google.com/store/apps/details?id=com.brandzy.app';
   } else {
-    show('', 'Open <b>brandzy.app/iphone</b> on your iPhone to install it there. On this computer you can use Brandzy right in your browser.');
-    openBtn.textContent = 'Open Brandzy';
+    // A computer: scan the code to install on the iPhone, or install on this computer (Chrome / Edge prompt, else a guide).
+    show('qr', '<img src="/assets/iphone-qr.svg" width="116" height="116" alt="QR code for brandzy.app/iphone">' +
+      '<div><b>Install on your iPhone</b>Point your iPhone camera at this code and tap the link, then follow the three steps.' +
+      '<br><span class="qr-alt">Or use <b>Install Brandzy</b> above to add it to this computer.</span></div>');
+    openBtn.textContent = 'Install Brandzy';
+    openBtn.addEventListener('click', function (e) {
+      if (window.brandzyInstall) { e.preventDefault(); window.brandzyInstall(); }
+    });
   }
 
   // Waitlist: insert-only table (ios_waitlist); the anon key can add an email but never read the list.
