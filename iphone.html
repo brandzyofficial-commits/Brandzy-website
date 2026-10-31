@@ -58,6 +58,7 @@
   .app-badge span { font-size: 13px; color: var(--text-faint); }
   .hero-cta { display: flex; flex-wrap: wrap; gap: 8px; margin: 18px 0 6px; }
   .hero-cta .btn { padding: 13px 22px; font-size: 15px; }
+  .hero-cta .btn[hidden] { display: none; }
   .status { margin-top: 14px; padding: 12px 14px; border-radius: 12px; font-size: 14px; line-height: 1.5; background: #f8fafc; border: 1px solid var(--border); color: var(--text-dim); }
   .status[hidden] { display: none; }
   .status.qr { display: flex; gap: 16px; align-items: center; background: #fff; }
@@ -147,6 +148,7 @@
       <p class="lede">No App Store, no download. Add Brandzy to your home screen from Safari and it opens full screen, with its own icon, just like an app.</p>
       <div class="hero-cta">
         <a class="btn" href="/app/" id="open-btn">Install Brandzy</a>
+        <a class="btn btn-ghost" href="/app/" id="desktop-btn" hidden>Install on this computer</a>
         <a class="btn btn-ghost" href="#steps">How to install</a>
       </div>
       <div class="status" id="status" hidden></div>
@@ -320,17 +322,22 @@
       if (window.brandzyInstall) { e.preventDefault(); window.brandzyInstall(); }
     });
   } else if (android) {
-    show('', '<b>On Android?</b> Get the Brandzy app from <a href="https://play.google.com/store/apps/details?id=com.brandzy.app">Google Play</a> instead.');
+    show('', '<b>You’re on Android.</b> Brandzy has a full app on Google Play, so get it there instead. This page is for iPhone users: share <b>brandzy.app/iphone</b> with them.');
     openBtn.textContent = 'Get it on Google Play';
     openBtn.href = 'https://play.google.com/store/apps/details?id=com.brandzy.app';
   } else {
-    // A computer: scan the code to install on the iPhone, or install on this computer (Chrome / Edge prompt, else a guide).
+    // A computer: the iPhone is installed from the iPhone (scan the code), so the main button shows
+    // how. "Install on this computer" appears only when Chrome / Edge can install it here.
     show('qr', '<img src="/assets/iphone-qr.svg" width="116" height="116" alt="QR code for brandzy.app/iphone">' +
-      '<div><b>Install on your iPhone</b>Point your iPhone camera at this code and tap the link, then follow the three steps.' +
-      '<br><span class="qr-alt">Or use <b>Install Brandzy</b> above to add it to this computer.</span></div>');
-    openBtn.textContent = 'Install Brandzy';
-    openBtn.addEventListener('click', function (e) {
-      if (window.brandzyInstall) { e.preventDefault(); window.brandzyInstall(); }
+      '<div><b>Install on your iPhone</b>Point your iPhone camera at this code and tap the link. It opens this page in Safari; then follow the three steps below.</div>');
+    openBtn.textContent = 'Install on iPhone';
+    openBtn.href = '#steps';
+    var desktopBtn = document.getElementById('desktop-btn');
+    window.addEventListener('beforeinstallprompt', function () { desktopBtn.hidden = false; });
+    window.addEventListener('appinstalled', function () { desktopBtn.hidden = true; });
+    desktopBtn.addEventListener('click', function (e) {
+      e.preventDefault();
+      if (window.brandzyInstall) window.brandzyInstall();
     });
   }
 
