@@ -38,7 +38,7 @@
 
 <main class="wrap legal">
   <h1>Privacy Policy</h1>
-  <p class="updated">Last updated: 1 November 2026 — Applies to the Brandzy web app, public creator pages, and this website.</p>
+  <p class="updated">Last updated: 7 November 2026 — Applies to the Brandzy web app, public creator pages, and this website.</p>
 
   <h2>1. Who we are</h2>
   <p>Brandzy is managed by Tharun Tech Solutions, a sole proprietorship based at 3-4-696/1, Om Sai Colony, Hanamkonda, Warangal – 506001, Telangana, India ("Brandzy", "we", "us", "our"). This policy explains what information we collect, why, where it is stored, and the choices you have. For any privacy question or request, email <a href="mailto:info@brandzy.app">info@brandzy.app</a>.</p>
@@ -59,6 +59,7 @@
     <li><strong>Store orders and bookings</strong> — buyer name, email, the product ordered, amount, and any session time chosen.</li>
   </ul>
   <p>This information is shared with the creator whose page it was submitted on, so they can respond and fulfil the request.</p>
+  <p><strong>Store visits on creators' public pages:</strong> when someone opens a creator's public page or taps a product, we record the visit, which product was tapped, where the visitor came from (the referring site or link source) and whether the device is a phone or a computer, with a random visitor ID kept in the browser. We use it only to show that creator their own store analytics. It is not used for advertising, is not shared with anyone else, and contains no name or email.</p>
   <p><strong>From people who join the iPhone app waitlist:</strong> the email address you enter on <a href="/iphone">brandzy.app/iphone</a>. We use it only to email you when the Brandzy iPhone app is released on the App Store, and delete the list after that email. To be removed sooner, write to <a href="mailto:info@brandzy.app">info@brandzy.app</a>.</p>
 
   <h2>3. Information stored in your browser</h2>
@@ -97,6 +98,16 @@
     <li><strong>Disconnecting:</strong> a creator can disconnect any platform at any time in the app (Settings → Connected Social Platforms). Disconnecting deletes the stored tokens straight away; the last numbers stay on the creator's page as ordinary, editable stats until they delete them. Access can also be removed from the platform side: Google Account → Security → Third-party connections, or Instagram → Settings → Website permissions.</li>
   </ul>
 
+  <h3>Google Calendar for booking calls</h3>
+  <p>Creators who sell calls (coaching, consultations, workshops) can connect Google Calendar. This is optional and works only after the creator signs in on Google's own screen and approves access. When connected:</p>
+  <ul>
+    <li><strong>What we use:</strong> Google Calendar events (<em>calendar.events</em>) and free/busy information (<em>calendar.freebusy</em>).</li>
+    <li><strong>How we use it:</strong> when a buyer's booking is paid, we create one event in the creator's primary calendar at the booked time, with a Google Meet link, and add the buyer as a guest so Google sends them the invite. We check the creator's free/busy times so booking times that clash with their other events are hidden from their page.</li>
+    <li><strong>What we store:</strong> the connected Google account's email address, the access and refresh tokens Google issues (on our servers only, never sent to a browser), and for each booking the ID of the event we created and its Meet link, which the creator and that buyer see on the order.</li>
+    <li><strong>What we never do:</strong> we do not read the titles, descriptions or guests of the creator's other events, and we do not change or delete them. We do not sell Calendar data, use it for advertising or to train AI models, or share it with anyone except Google itself, to send the invite. Brandzy's use of information received from Google APIs adheres to the <a href="https://developers.google.com/terms/api-services-user-data-policy" rel="noopener">Google API Services User Data Policy</a>, including the Limited Use requirements.</li>
+    <li><strong>Disconnecting:</strong> a creator can disconnect Google Calendar at any time in the app (Store → Products → open any call product → Google Calendar → Disconnect). Disconnecting revokes Brandzy's access at Google and deletes the stored tokens straight away; events already created stay in the creator's calendar as their own. Access can also be removed at Google Account → Security → Third-party connections.</li>
+  </ul>
+
   <h2>8. Service providers we use</h2>
   <ul>
     <li><strong>Supabase</strong> — database and authentication. Your data is stored on servers in Mumbai, India.</li>
@@ -104,9 +115,9 @@
     <li><strong>Google Fonts</strong> — font delivery. Your browser requests font files from Google's servers when pages load.</li>
     <li><strong>Google Analytics</strong> — visit statistics for this marketing website only, as described in section 3.</li>
     <li><strong>Push notification services</strong> — Google Firebase Cloud Messaging delivers notifications to the Android app; on iPhone and in desktop browsers, the browser maker's push service (Apple, Google, Mozilla or Microsoft) delivers them. A notification carries its title and a short message, such as a brand's name; for browsers it is encrypted so only your device can read it.</li>
-    <li><strong>Resend</strong> — delivery of account emails and of the emails creators send to their subscribers.</li>
+    <li><strong>Resend</strong> — delivery of account emails, order and membership renewal emails to buyers, and the emails creators send to their subscribers.</li>
     <li><strong>Meta (Instagram)</strong> — only for creators who connect Instagram, to receive comment and message notifications, send Auto DM replies, and read the account statistics described above.</li>
-    <li><strong>Google (YouTube)</strong> — only for creators who connect their YouTube channel, to read the account statistics described above.</li>
+    <li><strong>Google (YouTube and Google Calendar)</strong> — only for creators who connect them: YouTube to read the account statistics described above, and Google Calendar to add paid booking calls with a Google Meet link and send the buyer the invite.</li>
     <li><strong>Cashfree Payments</strong> — subscription payments for creators in India. We send Cashfree your name, email and mobile number for the payment, and it processes your card, UPI or bank details under its own privacy policy. Brandzy never sees or stores your full card or bank details.</li>
     <li><strong>Razorpay</strong> — auto-renew payments (UPI Autopay and card mandates) and payments in US dollars. Razorpay collects your payment details and contact information on its own checkout page and processes them under its own privacy policy; Brandzy receives only the payment and subscription status, never your full card or bank details.</li>
   </ul>
