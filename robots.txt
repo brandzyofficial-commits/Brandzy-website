@@ -30,3 +30,4 @@ User-agent: Applebot-Extended
 Allow: /
 
 Sitemap: https://brandzy.app/sitemap.xml
+Sitemap: https://brandzy.app/sitemap-creators.xml
