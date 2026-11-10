@@ -56,7 +56,7 @@ export async function onRequest(context) {
         : Promise.resolve([]),
     ]);
 
-    const html = renderPage(creator, products || [], stats || [], deals || []);
+    const html = renderPage(creator, products || [], stats || [], deals || [], sourceQuery(request.url));
     return new Response(request.method === "HEAD" ? null : html, {
       status: 200,
       headers: {
@@ -107,6 +107,18 @@ async function creatorsSitemap() {
   return new Response(xml, {
     headers: { "Content-Type": "application/xml; charset=utf-8", "Cache-Control": "public, max-age=3600" },
   });
+}
+
+/** "?src=..." with only the traffic-source parameters of the visited URL, or "". */
+export function sourceQuery(url) {
+  const from = new URL(url).searchParams;
+  const keep = new URLSearchParams();
+  for (const key of ["src", "utm_source", "utm_medium", "utm_campaign", "ref"]) {
+    const v = from.get(key);
+    if (v) keep.set(key, v.slice(0, 100));
+  }
+  const q = keep.toString();
+  return q ? "?" + q : "";
 }
 
 // ---------- rendering ----------
@@ -169,10 +181,11 @@ function productPrice(p) {
   return [main, usd].filter(Boolean).join(" · ") + per;
 }
 
-function renderPage(c, products, stats, deals) {
+function renderPage(c, products, stats, deals, query) {
   const username = c.username;
   const name = (c.name || "").trim() || username;
-  const appUrl = `/app/#/${encodeURIComponent(username)}`;
+  // Buttons carry ?src= / ?utm_source= / ?ref= on to the store, where its analytics read them.
+  const appUrl = `/app/${query}#/${encodeURIComponent(username)}`;
   const canonical = `${SITE}/${encodeURIComponent(username)}`;
   const image = c.avatar_url && /^https:\/\//.test(c.avatar_url) ? c.avatar_url : `${SITE}/og-image.png`;
 
@@ -239,7 +252,7 @@ function renderPage(c, products, stats, deals) {
               "@type": "Offer",
               name: p.title,
               ...(Number(p.price) > 0 ? { price: Number(p.price), priceCurrency: String(p.currency || "INR").toUpperCase() } : {}),
-              url: SITE + appUrl,
+              url: `${SITE}/app/#/${encodeURIComponent(username)}`,
             })),
           }
         : {}),
