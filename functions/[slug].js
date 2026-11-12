@@ -333,7 +333,7 @@ function renderPage(c, products, stats, deals, query) {
     <a class="logo" href="/"><img src="/assets/logo-mark.png" alt="" />Brandzy</a>
     <div class="nav-links">
       <a class="hide-sm" href="/pricing">Pricing</a>
-      <a class="btn" href="/app/?signup" style="white-space:nowrap">Try Brandzy free</a>
+      <a class="btn" href="/get?utm_source=creator_page&amp;utm_medium=header" style="white-space:nowrap">Get the app</a>
     </div>
   </nav>
 </header>
@@ -392,9 +392,10 @@ function renderPage(c, products, stats, deals, query) {
   <section class="cta">
     <h2>Make a page like this, free</h2>
     <p>Brandzy is a link in bio store for creators: sell digital products, courses, 1:1 calls and memberships, and send brands your media kit, with 0% Brandzy fees.</p>
-    <a class="btn" href="/app/?signup">Start free trial</a>
-    <a class="btn btn-ghost" href="/">See how it works</a>
+    <a class="btn" href="/get?utm_source=creator_page&amp;utm_medium=cta&amp;utm_campaign=${esc(encodeURIComponent(username))}">Get the Brandzy app</a>
+    <a class="btn btn-ghost" href="/?utm_source=creator_page&amp;utm_medium=cta">See how it works</a>
   </section>
+  <p class="note" style="text-align:center;margin-top:18px"><a href="/get?utm_source=creator_page&amp;utm_medium=footer&amp;utm_campaign=${esc(encodeURIComponent(username))}">Made with Brandzy · Get the app</a></p>
 </main>
 <footer>
   <div class="footer-wrap">
