@@ -5,6 +5,7 @@ Disallow: /app/
 Disallow: /pay.html
 Disallow: /pay
 Disallow: /admin/
+Disallow: /autopost/
 
 User-agent: GPTBot
 Allow: /

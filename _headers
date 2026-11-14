@@ -7,6 +7,11 @@
   X-Robots-Tag: noindex, nofollow
   Cache-Control: no-store
 
+/autopost/*
+  X-Robots-Tag: noindex, nofollow
+  Cache-Control: no-store
+  Referrer-Policy: no-referrer
+
 /app/*
   X-Robots-Tag: noindex
 

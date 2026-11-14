@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex, nofollow" />
+<meta name="referrer" content="no-referrer" />
+<title>Review today's post · Brandzy</title>
+<link rel="icon" href="/favicon.png" />
+<style>
+  :root { --bg:#FFF6EF; --card:#fff; --ink:#1a1a1a; --muted:#666; --line:#eadfd7; --accent:#E8431F; --ok:#1f8a4c; --bad:#b42318; }
+  @media (prefers-color-scheme: dark) { :root { --bg:#121316; --card:#1c1e23; --ink:#f2f2f2; --muted:#a3a3a3; --line:#2e3036; } }
+  * { box-sizing: border-box; }
+  body { margin:0; background:var(--bg); color:var(--ink); font:16px/1.5 system-ui,-apple-system,"Segoe UI",sans-serif; }
+  main { max-width: 980px; margin: 0 auto; padding: 24px 16px 64px; }
+  header { display:flex; align-items:center; gap:12px; margin-bottom:20px; }
+  header img { width:36px; height:36px; border-radius:10px; }
+  h1 { font-size:22px; margin:0; }
+  .meta { color:var(--muted); font-size:14px; }
+  .grid { display:grid; grid-template-columns: minmax(0,1fr) minmax(0,1.2fr); gap:24px; align-items:start; }
+  @media (max-width: 760px) { .grid { grid-template-columns: 1fr; } }
+  .shot { width:100%; border-radius:16px; display:block; box-shadow:0 8px 30px rgba(0,0,0,.12); }
+  .panel { background:var(--card); border:1px solid var(--line); border-radius:16px; padding:16px; }
+  label { display:block; font-weight:700; font-size:14px; margin:14px 0 6px; }
+  label:first-child { margin-top:0; }
+  label small { font-weight:400; color:var(--muted); }
+  textarea { width:100%; border:1px solid var(--line); border-radius:10px; padding:10px; font:inherit; font-size:14px; background:transparent; color:inherit; resize:vertical; }
+  .bar { display:flex; flex-wrap:wrap; gap:10px; margin-top:16px; }
+  button { border:0; border-radius:999px; padding:12px 20px; font:inherit; font-weight:700; cursor:pointer; }
+  button[disabled] { opacity:.5; cursor:default; }
+  .primary { background:var(--accent); color:#fff; }
+  .ghost { background:transparent; color:var(--ink); border:1px solid var(--line); }
+  .chips { display:flex; flex-wrap:wrap; gap:8px; margin-top:10px; }
+  .chip { font-size:13px; padding:4px 10px; border-radius:999px; border:1px solid var(--line); }
+  .chip.ok { color:var(--ok); border-color:currentColor; } .chip.bad { color:var(--bad); border-color:currentColor; }
+  .notice { padding:12px 14px; border-radius:12px; background:var(--card); border:1px solid var(--line); margin-bottom:16px; }
+  .notice.err { color:var(--bad); border-color:currentColor; }
+  .results a { color:var(--accent); }
+  .count { float:right; font-weight:400; color:var(--muted); }
+  .count.over { color:var(--bad); }
+</style>
+</head>
+<body>
+<main>
+  <header>
+    <img src="/assets/app-icon.png" alt="" />
+    <div><h1>Today's Brandzy post</h1><div class="meta" id="meta">Loading…</div></div>
+  </header>
+  <div id="notice"></div>
+  <div class="grid" id="view" hidden>
+    <div>
+      <img class="shot" id="image" alt="" />
+      <div class="chips" id="platforms"></div>
+    </div>
+    <div class="panel">
+      <form id="form"></form>
+      <div class="bar" id="actions">
+        <button class="primary" id="approve">Approve</button>
+        <button class="ghost" id="now">Approve and post now</button>
+        <button class="ghost" id="regen">New version</button>
+        <button class="ghost" id="reject">Skip today</button>
+      </div>
+      <div class="results" id="results"></div>
+    </div>
+  </div>
+</main>
+<script>
+  const API = "https://onypzbtzzilpxhleikgd.supabase.co/functions/v1/social-autopost";
+  const FIELDS = [
+    ["instagram", "Instagram", 2200], ["facebook", "Facebook", 5000], ["threads", "Threads", 500],
+    ["x", "X", 280], ["reddit_title", "Reddit title", 300], ["reddit_body", "Reddit text (first comment)", 10000],
+  ];
+  const q = new URLSearchParams(location.search);
+  let id = q.get("id"), t = q.get("t"), busy = false;
+  const $ = (s) => document.getElementById(s);
+
+  function notice(text, err) {
+    $("notice").innerHTML = text ? `<div class="notice${err ? " err" : ""}"></div>` : "";
+    if (text) $("notice").firstChild.textContent = text;
+  }
+
+  function render(v) {
+    const p = v.post;
+    $("view").hidden = false;
+    $("image").src = p.image_url;
+    $("image").alt = p.alt_text || "";
+    const when = p.publish_at ? new Date(p.publish_at).toLocaleString("en-IN", { dateStyle: "medium", timeStyle: "short" }) : "";
+    $("meta").textContent = `${p.for_date} · ${p.theme.replace(/_/g, " ")} · ${p.status.toLowerCase()}${when ? " · posts " + when : ""}`;
+
+    $("platforms").innerHTML = "";
+    for (const pl of v.platforms) {
+      const r = (p.results || {})[pl.id];
+      const c = document.createElement("span");
+      c.className = "chip " + (r ? (r.ok ? "ok" : "bad") : pl.ready ? "" : "bad");
+      c.textContent = pl.id + (r ? (r.ok ? " ✓ posted" : " ✗ failed") : pl.ready ? "" : " · not connected");
+      if (r && !r.ok) c.title = r.error || "";
+      $("platforms").append(c);
+    }
+
+    const form = $("form");
+    form.innerHTML = "";
+    const editable = p.status === "DRAFT";
+    for (const [key, label, max] of FIELDS) {
+      const l = document.createElement("label");
+      l.textContent = label + " ";
+      const count = document.createElement("span");
+      count.className = "count";
+      l.append(count);
+      const ta = document.createElement("textarea");
+      ta.name = key; ta.value = p.captions[key] || ""; ta.readOnly = !editable;
+      ta.rows = key === "instagram" || key === "reddit_body" || key === "facebook" ? 7 : key === "reddit_title" ? 2 : 4;
+      const upd = () => { count.textContent = `${ta.value.length}/${max}`; count.classList.toggle("over", ta.value.length > max); };
+      ta.addEventListener("input", upd); upd();
+      form.append(l, ta);
+    }
+    $("actions").hidden = !editable;
+    if (!v.enabled) notice("Auto-posting is switched off in social_autopost_settings, so approved posts won't go out until it's on.", true);
+
+    const links = Object.entries(p.results || {}).filter(([, r]) => r.ok && r.url);
+    $("results").innerHTML = links.length ? "<label>Live posts</label>" : "";
+    for (const [pl, r] of links) {
+      const a = document.createElement("a");
+      a.href = r.url; a.target = "_blank"; a.rel = "noopener"; a.textContent = pl;
+      $("results").append(a, document.createTextNode("  "));
+    }
+  }
+
+  async function load() {
+    if (!id || !t) { notice("This link is missing its post id. Open the link from the email again.", true); $("meta").textContent = ""; return; }
+    try {
+      const res = await fetch(`${API}?id=${encodeURIComponent(id)}&t=${encodeURIComponent(t)}`);
+      const v = await res.json();
+      if (!res.ok) throw new Error(v.error || res.statusText);
+      render(v);
+    } catch (e) { notice(e.message, true); $("meta").textContent = ""; }
+  }
+
+  async function act(action, extra) {
+    if (busy) return;
+    busy = true;
+    document.querySelectorAll("#actions button").forEach((b) => (b.disabled = true));
+    const captions = Object.fromEntries(new FormData($("form")));
+    notice(action === "regenerate" ? "Writing a new version… (about 30 seconds)" : action === "approve" && extra?.publish_now ? "Posting… (up to a minute)" : "Saving…");
+    try {
+      const res = await fetch(API, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ action, id, t, captions, ...extra }),
+      });
+      const v = await res.json();
+      if (!res.ok) throw new Error(v.error || res.statusText);
+      if (v.next) {
+        id = v.next.id; t = v.next.t;
+        history.replaceState(null, "", `?id=${id}&t=${t}`);
+        notice("Here's a new version.");
+        await load();
+      } else {
+        render(v);
+        notice({ approve: extra?.publish_now ? "Done. See the results below." : "Approved. It will post at the time shown above.", reject: "Skipped. Nothing will be posted today." }[action] || "");
+      }
+    } catch (e) { notice(e.message, true); }
+    busy = false;
+    document.querySelectorAll("#actions button").forEach((b) => (b.disabled = false));
+  }
+
+  $("approve").onclick = () => act("approve");
+  $("now").onclick = () => act("approve", { publish_now: true });
+  $("reject").onclick = () => { if (confirm("Skip today's post?")) act("reject"); };
+  $("regen").onclick = () => {
+    const note = prompt("Anything to change? (optional, e.g. \"shorter\", \"focus on invoices\")", "");
+    if (note !== null) act("regenerate", { note });
+  };
+  load();
+</script>
+</body>
+</html>
