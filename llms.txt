@@ -73,7 +73,7 @@ Brandzy is a Stan Store alternative for creators in India. Stan Store, Linktree 
 - [Reel size and aspect ratio checker](https://brandzy.app/tools/reel-size-checker): checks a video's resolution, 9:16 ratio, length and file size for Reels, Shorts and TikTok, with a safe-zone overlay
 
 ## Creator rewards
-- [Reel rewards](https://brandzy.app/reel-rewards): creators who post a Reel about Brandzy get a free month of Growth or Pro once it passes 3,000 to 10,000 views in 30 days (plan months, not cash; must be disclosed as #ad or paid partnership)
+- [Reel rewards](https://brandzy.app/reel-rewards): creators with 50,000+ Instagram followers who post a Reel about Brandzy get a free month of Growth or Pro once it passes 10,000 to 25,000 views in 30 days (plan months, not cash; must be disclosed as #ad or paid partnership)
 
 ## Links
 - Instagram: https://www.instagram.com/brandzyoff/ (@brandzyoff)
