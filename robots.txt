@@ -1,5 +1,9 @@
-# Brandzy — all crawlers, including AI search and assistant crawlers, are welcome.
+# Brandzy: search engines and AI assistants are welcome to read, cite and link to these pages.
+# Content signals (contentsignals.org): search=yes (index and link), ai-input=yes (use in AI answers
+# and grounding), ai-train=no (please don't use this content to train AI models).
+
 User-agent: *
+Content-Signal: search=yes, ai-input=yes, ai-train=no
 Allow: /
 Disallow: /app/
 Disallow: /pay.html
@@ -7,28 +11,25 @@ Disallow: /pay
 Disallow: /admin/
 Disallow: /autopost/
 
+# AI search and assistant crawlers: same rules, named so they're explicitly welcome.
 User-agent: GPTBot
-Allow: /
 User-agent: OAI-SearchBot
-Allow: /
 User-agent: ChatGPT-User
-Allow: /
 User-agent: ClaudeBot
-Allow: /
 User-agent: Claude-SearchBot
-Allow: /
 User-agent: Claude-User
-Allow: /
 User-agent: PerplexityBot
-Allow: /
 User-agent: Perplexity-User
-Allow: /
 User-agent: Google-Extended
-Allow: /
 User-agent: Bingbot
-Allow: /
 User-agent: Applebot-Extended
+Content-Signal: search=yes, ai-input=yes, ai-train=no
 Allow: /
+Disallow: /app/
+Disallow: /pay.html
+Disallow: /pay
+Disallow: /admin/
+Disallow: /autopost/
 
 Sitemap: https://brandzy.app/sitemap.xml
 Sitemap: https://brandzy.app/sitemap-creators.xml

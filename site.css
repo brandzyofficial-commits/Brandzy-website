@@ -93,3 +93,7 @@
 .bz-rew-more a { color: var(--bz-brand-dark); font-weight: 700; text-decoration: none; }
 @media (max-width: 760px) { .bz-rsteps { grid-template-columns: minmax(0, 1fr); } }
 @media print { .bz-rew { display: none !important; } }
+/* Homepage: badges under the hero call to action (sitefoot.py hero_trust_script). */
+.bz-hero-trust { justify-content: center; margin: 4px auto 22px; font-family: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
+  --bz-text: #0f172a; --bz-faint: #94a3b8; --bz-line: #e5e7eb; }
+.bz-hero-trust .bz-badge { text-align: left; }
