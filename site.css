@@ -1,0 +1,64 @@
+/* Shared site footer, "Featured on" strip and closing call to action (all static pages and the homepage).
+   Self-contained: no Tailwind, no variables from other stylesheets. Generated markup: scripts/site-tools/site.py */
+.bz-foot, .bz-end, .bz-feat { --bz-brand: #ff5b37; --bz-brand-dark: #e8431f; --bz-text: #0f172a; --bz-dim: #475569; --bz-faint: #94a3b8; --bz-line: #e5e7eb;
+  font-family: "Plus Jakarta Sans", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; box-sizing: border-box; }
+.bz-foot *, .bz-end *, .bz-feat * { box-sizing: border-box; }
+
+/* Closing call to action */
+.bz-end { background: #fff; padding: 56px 16px; border-top: 1px solid var(--bz-line); }
+.bz-end-in { max-width: 1120px; margin: 0 auto; background: linear-gradient(135deg, #fff4ef, #fffaf7 60%, #f8fafc); border: 1px solid #ffe0d4;
+  border-radius: 28px; padding: clamp(28px, 5vw, 56px); display: grid; grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr); gap: 28px; align-items: center; }
+.bz-end h2 { margin: 0 0 12px; font-size: clamp(26px, 4vw, 40px); line-height: 1.1; letter-spacing: -.02em; color: var(--bz-text); font-weight: 800; }
+.bz-end h2 span { color: var(--bz-brand-dark); display: block; }
+.bz-end p { margin: 0 0 22px; color: var(--bz-dim); font-size: 16px; line-height: 1.6; max-width: 520px; }
+.bz-btns { display: flex; flex-wrap: wrap; gap: 10px; }
+.bz-btn { display: inline-flex; align-items: center; justify-content: center; padding: 12px 22px; border-radius: 999px; font-weight: 700; font-size: 15px;
+  text-decoration: none; background: var(--bz-brand); color: #fff; border: 1px solid var(--bz-brand); transition: background .15s; }
+.bz-btn:hover { background: var(--bz-brand-dark); }
+.bz-btn.ghost { background: #fff; color: var(--bz-text); border-color: var(--bz-line); }
+.bz-btn.ghost:hover { border-color: var(--bz-brand); color: var(--bz-brand-dark); }
+.bz-end small { display: block; margin-top: 14px; color: var(--bz-faint); font-size: 13px; }
+.bz-end-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
+.bz-end-list li { background: #fff; border: 1px solid var(--bz-line); border-radius: 16px; padding: 12px 14px; font-size: 14.5px; color: var(--bz-text); font-weight: 600;
+  display: flex; gap: 10px; align-items: center; box-shadow: 0 6px 20px rgba(15, 23, 42, .05); }
+.bz-end-list li b { color: var(--bz-brand-dark); }
+@media (max-width: 760px) { .bz-end-in { grid-template-columns: minmax(0, 1fr); } }
+
+/* Featured on */
+.bz-feat { background: #fff; padding: 28px 16px 8px; }
+.bz-feat-in { max-width: 1120px; margin: 0 auto; }
+.bz-feat h3 { margin: 0 0 12px; font-size: 12px; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; color: var(--bz-faint); }
+.bz-feat-row { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+.bz-feat-row a { display: inline-flex; align-items: center; gap: 8px; padding: 8px 16px; border: 1px solid var(--bz-line); border-radius: 999px;
+  font-size: 14px; font-weight: 700; color: var(--bz-text); text-decoration: none; background: #fff; }
+.bz-feat-row a:hover { border-color: var(--bz-brand); }
+.bz-feat-row img { height: 44px; width: auto; display: block; }
+.bz-feat-row a.img { padding: 0; border: 0; }
+
+/* Footer */
+.bz-foot { background: #fff; border-top: 1px solid var(--bz-line); padding: 48px 16px 28px; color: var(--bz-dim); font-size: 14px; }
+.bz-foot-in { max-width: 1120px; margin: 0 auto; display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 3fr); gap: 36px; }
+.bz-foot-brand .bz-logo { display: inline-flex; align-items: center; gap: 8px; font-weight: 800; font-size: 20px; color: var(--bz-text); text-decoration: none; }
+.bz-foot-brand .bz-logo img { width: 30px; height: 30px; border-radius: 8px; }
+.bz-foot-brand p { margin: 12px 0 16px; line-height: 1.6; }
+.bz-badge { display: flex; gap: 10px; align-items: center; border: 1px solid var(--bz-line); border-radius: 14px; padding: 10px 12px; margin-bottom: 10px; max-width: 280px; }
+.bz-badge svg { flex: none; }
+.bz-badge b { display: block; color: var(--bz-text); font-size: 13.5px; }
+.bz-badge span { font-size: 12.5px; color: var(--bz-faint); }
+.bz-contact a { color: var(--bz-dim); text-decoration: none; }
+.bz-contact a:hover { color: var(--bz-brand-dark); }
+.bz-cols { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 28px 20px; }
+.bz-col h4 { margin: 0 0 12px; font-size: 12px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; color: var(--bz-faint); }
+.bz-col a { display: block; color: var(--bz-dim); text-decoration: none; padding: 5px 0; line-height: 1.4; }
+.bz-col a:hover { color: var(--bz-brand-dark); }
+.bz-foot-bottom { max-width: 1120px; margin: 32px auto 0; padding-top: 18px; border-top: 1px solid var(--bz-line); display: flex; flex-wrap: wrap;
+  justify-content: space-between; gap: 8px; font-size: 13px; color: var(--bz-faint); }
+@media (max-width: 900px) { .bz-foot-in { grid-template-columns: minmax(0, 1fr); } .bz-cols { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+@media (max-width: 600px) { .bz-cols { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media print { .bz-foot, .bz-end, .bz-feat { display: none !important; } }
+
+/* Homepage: the static footer replaces the app's own footer. */
+#root footer { display: none !important; }
+.bz-trust { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 16px; }
+.bz-trust:empty { display: none; }
+.bz-trust .bz-badge { margin: 0; background: #fff; }

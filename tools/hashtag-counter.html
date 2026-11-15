@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="en-IN">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-5C2B6BQRZX"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-5C2B6BQRZX');
+</script>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Instagram Hashtag Counter and Cleaner (30 Limit Checker) | Brandzy</title>
+<meta name="description" content="Free hashtag counter: paste hashtags or a caption to count them against Instagram's 30 limit, remove duplicates, flag generic tags and copy them clean." />
+<meta name="robots" content="index, follow, max-image-preview:large" />
+<link rel="canonical" href="https://brandzy.app/tools/hashtag-counter" />
+<meta property="og:site_name" content="Brandzy" />
+<meta property="og:type" content="website" />
+<meta property="og:title" content="Hashtag counter and cleaner" />
+<meta property="og:description" content="Free hashtag counter: paste hashtags or a caption to count them against Instagram's 30 limit, remove duplicates, flag generic tags and copy them clean." />
+<meta property="og:url" content="https://brandzy.app/tools/hashtag-counter" />
+<meta property="og:image" content="https://brandzy.app/og-image.png" />
+<meta property="og:locale" content="en_IN" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="theme-color" content="#FF5B37" />
+<link rel="icon" type="image/png" href="/assets/favicon.png" />
+<link rel="manifest" href="/manifest.webmanifest" />
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/compare.css" />
+<link rel="stylesheet" href="/tools/tools.css" />
+<script src="/tools/tools.js"></script>
+<link rel="stylesheet" href="/site.css" />
+<script type="application/ld+json">
+{"@context": "https://schema.org", "@graph": [{"@type": "Organization", "@id": "https://brandzy.app/#org", "name": "Tharun Tech Solutions", "brand": {"@type": "Brand", "name": "Brandzy"}, "url": "https://brandzy.app/", "email": "info@brandzy.app"}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Brandzy", "item": "https://brandzy.app/"}, {"@type": "ListItem", "position": 2, "name": "Free tools", "item": "https://brandzy.app/tools/"}, {"@type": "ListItem", "position": 3, "name": "Hashtag counter and cleaner", "item": "https://brandzy.app/tools/hashtag-counter"}]}, {"@type": "WebApplication", "name": "Brandzy hashtag counter", "url": "https://brandzy.app/tools/hashtag-counter", "applicationCategory": "BusinessApplication", "operatingSystem": "Any web browser", "isAccessibleForFree": true, "inLanguage": "en-IN", "description": "Free hashtag counter: paste hashtags or a caption to count them against Instagram's 30 limit, remove duplicates, flag generic tags and copy them clean.", "offers": {"@type": "Offer", "price": "0", "priceCurrency": "INR"}, "publisher": {"@id": "https://brandzy.app/#org"}}, {"@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "How many hashtags can you use on Instagram?", "acceptedAnswer": {"@type": "Answer", "text": "Up to 30 on a post. Instagram recommends 3 to 5 relevant hashtags."}}, {"@type": "Question", "name": "Are Instagram hashtags case-sensitive?", "acceptedAnswer": {"@type": "Answer", "text": "No. #GoaTrip and #goatrip are the same hashtag, so this tool removes duplicates that differ only in capital letters."}}, {"@type": "Question", "name": "Do broad hashtags like #viral or #explorepage help?", "acceptedAnswer": {"@type": "Answer", "text": "Not really. They're too broad to tell Instagram what your post is about. Use specific hashtags that describe your topic."}}]}]}
+</script>
+</head>
+<body data-tool="hashtag-counter">
+<header>
+  <nav>
+    <a class="logo" href="/"><img src="/assets/logo-mark.png" alt="" />Brandzy</a>
+    <div class="nav-links">
+      <a class="hide-sm" href="/tools/">Free tools</a>
+      <a class="hide-sm" href="/pricing">Pricing</a>
+      <a class="btn" href="/app/?signup">Start free trial</a>
+    </div>
+  </nav>
+</header>
+
+<main class="tool">
+  <div class="crumbs"><a href="/">Brandzy</a> › <a href="/tools/">Free tools</a> › Hashtag counter and cleaner</div>
+  <h1>Hashtag counter and cleaner</h1>
+  <p class="lede">Paste hashtags or a whole caption to count them, remove duplicates, flag generic tags and copy a clean list.</p>
+  <p class="meta">Free, no sign-up. Updated 15 November 2026 by the Brandzy team.</p>
+<p class="private">🔒 Runs in your browser. Nothing you type is uploaded or saved by Brandzy.</p>
+  <div class="tool-grid">
+    <form class="panel no-print" id="f" onsubmit="return false">
+      <h2>Your hashtags</h2>
+      <div class="field"><label for="tags">Paste hashtags or a caption</label><textarea id="tags" name="tags" style="min-height:200px" placeholder="#goatrip #budgettravel #travelindia #goa #GoaTrip"></textarea></div>
+      <div class="field"><label for="fmt">Output format</label>
+        <select id="fmt" name="fmt"><option value="space">Space separated</option><option value="line">One per line</option><option value="dots">Hidden below dots</option></select></div>
+    </form>
+
+    <div class="panel result" aria-live="polite">
+      <span class="pill">Hashtags</span>
+      <div class="big" style="margin:12px 0 4px" id="count">0</div>
+      <p class="muted" id="band" style="margin-bottom:12px">Paste some hashtags.</p>
+      <div class="out-row"><div class="out" id="clean"></div><button type="button" class="cbtn" data-copy="#clean">Copy</button></div>
+      <ul class="checks" id="checks" style="margin-top:12px"></ul>
+    </div>
+  </div>
+
+<script>
+(function () {
+  const { $, esc, remember, track } = BT;
+  const f = $("#f"); remember("hashtags", f); let used = false;
+  function run() {
+    const raw = f.tags.value.match(/#[\p{L}\p{N}_]+/gu) || [];
+    const seen = new Map(); raw.forEach((t) => { const k = t.toLowerCase(); if (!seen.has(k)) seen.set(k, t); });
+    const tags = Array.from(seen.values()), dups = raw.length - tags.length;
+    const sep = { space: " ", line: "\n", dots: "\n" }[f.fmt.value];
+    $("#clean").textContent = tags.length ? (f.fmt.value === "dots" ? ".\n.\n.\n" : "") + tags.join(sep) : "";
+    $("#count").textContent = tags.length;
+    $("#band").textContent = !tags.length ? "Paste some hashtags." : tags.length > 30 ? "Over Instagram's limit of 30." : tags.length > 5 ? "Allowed, but Instagram suggests 3 to 5 relevant hashtags." : "A good number.";
+    const out = [];
+    if (dups) out.push(["warn", dups + " duplicate" + (dups > 1 ? "s" : "") + " removed (hashtags aren't case-sensitive)."]);
+    if (tags.length > 30) out.push(["bad", "Remove " + (tags.length - 30) + ". Posts with more than 30 hashtags can fail to publish."]);
+    const long = tags.filter((t) => t.length > 25); if (long.length) out.push(["warn", "Very long: " + long.join(" ") + ". Few people search these."]);
+    const generic = tags.filter((t) => /^#(love|instagood|photooftheday|reels|reelsinstagram|viral|explore|explorepage|trending|follow|like4like|followforfollow|instadaily|fyp)$/i.test(t));
+    if (generic.length) out.push(["warn", "Generic: " + generic.join(" ") + ". These are too broad to help; use tags about your topic."]);
+    if (tags.length && !out.length) out.push(["ok", "No duplicates, nothing too long or too generic."]);
+    $("#checks").innerHTML = out.map((o) => '<li class="' + o[0] + '">' + esc(o[1]) + "</li>").join("");
+    if (!used && tags.length) { used = true; track("tool_used"); }
+  }
+  f.addEventListener("input", run); f.addEventListener("change", run); run();
+})();
+</script>
+
+  <h2>How many hashtags should you use?</h2>
+  <p>Instagram allows up to 30 hashtags on a post and recommends 3 to 5. Hashtags now help Instagram understand what your post is about more than they bring reach on their own, so pick a few that describe the topic exactly (#goatrip, #budgettravelindia) rather than broad ones like #reels or #viral. Hashtags aren't case-sensitive, so #GoaTrip and #goatrip are the same tag.</p>
+  <p>Put them at the end of the caption. Check the whole caption with the <a href="/tools/instagram-caption-checker">caption checker</a>.</p>
+
+  <h2>Frequently asked questions</h2>
+  <details><summary>How many hashtags can you use on Instagram?</summary>
+    <p>Up to 30 on a post. Instagram recommends 3 to 5 relevant hashtags.</p></details>
+  <details><summary>Are Instagram hashtags case-sensitive?</summary>
+    <p>No. #GoaTrip and #goatrip are the same hashtag, so this tool removes duplicates that differ only in capital letters.</p></details>
+  <details><summary>Do broad hashtags like #viral or #explorepage help?</summary>
+    <p>Not really. They're too broad to tell Instagram what your post is about. Use specific hashtags that describe your topic.</p></details>
+
+  <div class="cta">
+    <h2>Spend less time on hashtags, more on sales</h2>
+    <p>Brandzy gives you a store with UPI checkout, Auto DM and a live media kit behind one link. 7-day free trial, 0% commission.</p>
+    <a class="btn" href="/app/?signup">Start free trial</a>
+    <a class="btn btn-ghost" href="/pricing">See pricing</a>
+  </div>
+  <h2>More free tools</h2>
+  <div class="more-tools"><a href="/tools/">All free tools</a><a href="/tools/brand-deal-rate-calculator">Brand deal rate calculator</a><a href="/tools/influencer-invoice-generator">Influencer invoice generator</a><a href="/tools/media-kit-maker">Media kit maker</a><a href="/tools/engagement-rate-calculator">Engagement rate calculator</a><a href="/tools/brand-pitch-email-generator">Brand pitch email generator</a><a href="/tools/upi-qr-code-generator">UPI QR code and payment link</a><a href="/tools/gst-calculator-for-creators">GST calculator for creators</a><a href="/tools/instagram-caption-checker">Instagram caption checker</a><a href="/tools/reel-hook-generator">Reel hook generator</a><a href="/tools/cta-builder">Call-to-action builder</a><a href="/tools/instagram-bio-checker">Instagram bio checker</a><a href="/tools/instagram-bio-generator">Instagram bio generator</a><a href="/tools/instagram-grid-planner">Instagram grid planner</a><a href="/tools/reel-size-checker">Reel size and aspect ratio checker</a></div>
+</main>
+
+<!--bz-footer-->
+<footer class="bz-foot">
+  <div class="bz-foot-in">
+    <div class="bz-foot-brand">
+      <a class="bz-logo" href="/"><img src="/assets/logo-mark.png" alt="" />Brandzy</a>
+      <p>Brandzy is the all-in-one creator platform for India: store with UPI checkout, Instagram Auto DM, live media kit, brand deals and invoices behind one link.</p>
+      <div class="bz-badge"><svg width="26" height="26" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="11" fill="#0866ff"/><path d="M7 12.5l3 3 7-7" stroke="#fff" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg><div><b>Approved by Meta</b><span>Built on the official Instagram API</span></div></div>
+      <div class="bz-badge"><svg width="26" height="26" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="11" fill="#34a853"/><path d="M7 12.5l3 3 7-7" stroke="#fff" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg><div><b>Verified by Google</b><span>Built on the official YouTube API</span></div></div>
+      <div class="bz-contact"><a href="mailto:info@brandzy.app">info@brandzy.app</a><br /><a href="tel:+916300967265">+91 63009 67265</a></div>
+    </div>
+    <div class="bz-cols">
+      <div class="bz-col"><h4>Product</h4><a href="/pricing">Pricing</a><a href="/tools/">Free tools</a><a href="/reel-rewards">Reel rewards</a><a href="https://play.google.com/store/apps/details?id=com.brandzy.app&amp;referrer=utm_source%3Dwebsite%26utm_medium%3Dfooter" target="_blank" rel="noopener">Android app</a><a href="/iphone">Brandzy for iPhone</a><a href="/app/">Log in</a></div>
+      <div class="bz-col"><h4>Free tools</h4><a href="/tools/brand-deal-rate-calculator">Brand deal rate calculator</a><a href="/tools/influencer-invoice-generator">Invoice generator (GST)</a><a href="/tools/media-kit-maker">Media kit maker</a><a href="/tools/upi-qr-code-generator">UPI QR code generator</a><a href="/tools/engagement-rate-calculator">Engagement rate calculator</a><a href="/tools/">All free tools</a></div>
+      <div class="bz-col"><h4>Compare</h4><a href="/linktree-alternative">Linktree alternative</a><a href="/stan-store-alternative">Stan Store alternative</a><a href="/linktree-vs-stan-store">Linktree vs Stan Store vs Brandzy</a><a href="/link-in-bio-tools-india">Best link-in-bio tools in India</a></div>
+      <div class="bz-col"><h4>Learn</h4><a href="/influencer-media-kit">How to make a media kit</a><a href="/influencer-invoice-india">How to invoice brands with GST</a><a href="/tools/engagement-rate-calculator">What is a good engagement rate?</a><a href="/tools/brand-deal-rate-calculator">How much to charge for a reel?</a><a href="/tools/instagram-bio-checker">What makes a good Instagram bio?</a></div>
+      <div class="bz-col"><h4>Company</h4><a href="/contact">Contact</a><a href="/reel-rewards#terms">Reel reward terms</a><a href="/privacy">Privacy policy</a><a href="/terms">Terms</a><a href="/refund-policy">Refund and cancellation</a><a href="/shipping-delivery">Shipping and delivery</a><a href="/data-deletion">Data deletion</a><a href="/child-safety">Child safety</a></div>
+    </div>
+  </div>
+  <div class="bz-foot-bottom"><span>© 2026 Brandzy · Tharun Tech Solutions, Hanamkonda, Warangal, Telangana</span><span>Made in India for creators</span></div>
+</footer>
+<!--/bz-footer-->
+</body>
+</html>

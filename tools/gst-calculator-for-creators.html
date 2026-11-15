@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="en-IN">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-5C2B6BQRZX"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-5C2B6BQRZX');
+</script>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>GST Calculator for Influencers and Creators (18%, CGST, SGST, IGST) | Brandzy</title>
+<meta name="description" content="Free GST calculator for Indian creators: add or remove 18% GST on a brand deal and see the CGST + SGST or IGST split and the amount in words." />
+<meta name="robots" content="index, follow, max-image-preview:large" />
+<link rel="canonical" href="https://brandzy.app/tools/gst-calculator-for-creators" />
+<meta property="og:site_name" content="Brandzy" />
+<meta property="og:type" content="website" />
+<meta property="og:title" content="GST calculator for creators" />
+<meta property="og:description" content="Free GST calculator for Indian creators: add or remove 18% GST on a brand deal and see the CGST + SGST or IGST split and the amount in words." />
+<meta property="og:url" content="https://brandzy.app/tools/gst-calculator-for-creators" />
+<meta property="og:image" content="https://brandzy.app/og-image.png" />
+<meta property="og:locale" content="en_IN" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="theme-color" content="#FF5B37" />
+<link rel="icon" type="image/png" href="/assets/favicon.png" />
+<link rel="manifest" href="/manifest.webmanifest" />
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/compare.css" />
+<link rel="stylesheet" href="/tools/tools.css" />
+<script src="/tools/tools.js"></script>
+<link rel="stylesheet" href="/site.css" />
+<script type="application/ld+json">
+{"@context": "https://schema.org", "@graph": [{"@type": "Organization", "@id": "https://brandzy.app/#org", "name": "Tharun Tech Solutions", "brand": {"@type": "Brand", "name": "Brandzy"}, "url": "https://brandzy.app/", "email": "info@brandzy.app"}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Brandzy", "item": "https://brandzy.app/"}, {"@type": "ListItem", "position": 2, "name": "Free tools", "item": "https://brandzy.app/tools/"}, {"@type": "ListItem", "position": 3, "name": "GST calculator for creators", "item": "https://brandzy.app/tools/gst-calculator-for-creators"}]}, {"@type": "WebApplication", "name": "Brandzy GST calculator for creators", "url": "https://brandzy.app/tools/gst-calculator-for-creators", "applicationCategory": "BusinessApplication", "operatingSystem": "Any web browser", "isAccessibleForFree": true, "inLanguage": "en-IN", "description": "Free GST calculator for Indian creators: add or remove 18% GST on a brand deal and see the CGST + SGST or IGST split and the amount in words.", "offers": {"@type": "Offer", "price": "0", "priceCurrency": "INR"}, "publisher": {"@id": "https://brandzy.app/#org"}}, {"@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "What is the GST rate for influencers and content creators in India?", "acceptedAnswer": {"@type": "Answer", "text": "Advertising, promotion and content creation services usually carry 18% GST: 9% CGST plus 9% SGST for a brand in your state, or 18% IGST for a brand in another state."}}, {"@type": "Question", "name": "When does a creator need GST registration?", "acceptedAnswer": {"@type": "Answer", "text": "Once your yearly turnover from services crosses ₹20 lakh (₹10 lakh in some special category states). You can register earlier if brands ask for a GST invoice."}}, {"@type": "Question", "name": "How do I remove GST from a total amount?", "acceptedAnswer": {"@type": "Answer", "text": "Divide the total by 1 plus the rate. For 18% GST, ₹29,500 ÷ 1.18 = ₹25,000 before GST, and ₹4,500 is the GST."}}]}]}
+</script>
+</head>
+<body data-tool="gst-calculator-for-creators">
+<header>
+  <nav>
+    <a class="logo" href="/"><img src="/assets/logo-mark.png" alt="" />Brandzy</a>
+    <div class="nav-links">
+      <a class="hide-sm" href="/tools/">Free tools</a>
+      <a class="hide-sm" href="/pricing">Pricing</a>
+      <a class="btn" href="/app/?signup">Start free trial</a>
+    </div>
+  </nav>
+</header>
+
+<main class="tool">
+  <div class="crumbs"><a href="/">Brandzy</a> › <a href="/tools/">Free tools</a> › GST calculator for creators</div>
+  <h1>GST calculator for creators</h1>
+  <p class="lede">Add or remove GST on a brand deal and see the CGST, SGST or IGST split, with the total in words for your invoice.</p>
+  <p class="meta">Free, no sign-up. Updated 15 November 2026 by the Brandzy team.</p>
+<p class="private">🔒 Runs in your browser. Nothing you type is uploaded or saved by Brandzy.</p>
+  <div class="tool-grid">
+    <form class="panel no-print" id="f" onsubmit="return false">
+      <h2>Your amount</h2>
+      <div class="field"><label for="amt">Amount (₹)</label><input id="amt" name="amt" inputmode="decimal" placeholder="e.g. 25000" /></div>
+      <div class="field"><label for="mode">This amount is</label>
+        <select id="mode" name="mode"><option value="add">Before GST (add GST)</option><option value="remove">Including GST (remove GST)</option></select></div>
+      <div class="row2">
+        <div class="field"><label for="rate">GST rate</label>
+          <select id="rate" name="rate"><option value="18">18% (most creator services)</option><option value="12">12%</option><option value="5">5%</option><option value="28">28%</option></select></div>
+        <div class="field"><label for="where">Brand is in</label>
+          <select id="where" name="where"><option value="same">Your state (CGST + SGST)</option><option value="other">Another state (IGST)</option></select></div>
+      </div>
+      <p class="muted">Advertising, promotion and content creation services usually carry 18% GST. Check with your CA if you're unsure.</p>
+    </form>
+
+    <div class="panel result" aria-live="polite">
+      <span class="pill">Total to invoice</span>
+      <div class="big" style="margin:12px 0 4px" id="tot">—</div>
+      <p class="muted" id="words" style="margin-bottom:14px"></p>
+      <div class="kv"><span>Amount before GST</span><span id="base">—</span></div>
+      <div class="kv" id="r1"><span id="l1">CGST</span><span id="v1">—</span></div>
+      <div class="kv" id="r2"><span id="l2">SGST</span><span id="v2">—</span></div>
+      <div class="kv"><span>Total GST</span><span id="gst">—</span></div>
+      <p class="muted" style="margin-top:14px">Next: make the invoice with the <a href="/tools/influencer-invoice-generator">invoice generator</a>.</p>
+    </div>
+  </div>
+
+<script>
+(function () {
+  const { $, num, inr, rupeesInWords, remember, track } = BT;
+  const f = $("#f"); remember("gst", f); let used = false;
+  function calc() {
+    const a = num(f.amt.value), r = num(f.rate.value) / 100, add = f.mode.value === "add", inter = f.where.value === "other";
+    if (!a) { ["tot", "base", "v1", "v2", "gst"].forEach((id) => $("#" + id).textContent = "—"); $("#words").textContent = ""; return; }
+    const base = add ? a : a / (1 + r), gst = Math.round(base * r * 100) / 100, total = Math.round((base + gst) * 100) / 100;
+    $("#tot").textContent = inr(total, 2); $("#words").textContent = rupeesInWords(total);
+    $("#base").textContent = inr(base, 2); $("#gst").textContent = inr(gst, 2);
+    $("#l1").textContent = inter ? "IGST " + (r * 100) + "%" : "CGST " + (r * 50) + "%";
+    $("#v1").textContent = inr(inter ? gst : gst / 2, 2);
+    $("#r2").style.display = inter ? "none" : ""; $("#l2").textContent = "SGST " + (r * 50) + "%"; $("#v2").textContent = inr(gst / 2, 2);
+    if (!used) { used = true; track("tool_used"); }
+  }
+  f.addEventListener("input", calc); f.addEventListener("change", calc); calc();
+})();
+</script>
+
+  <h2>How GST works on brand deals</h2>
+  <div class="answer"><span class="label">Formulas</span>
+    <p><strong>Adding GST:</strong> total = amount × (1 + rate). ₹25,000 + 18% = ₹29,500.</p>
+    <p><strong>Removing GST:</strong> amount before GST = total ÷ (1 + rate). ₹29,500 ÷ 1.18 = ₹25,000.</p></div>
+  <p>If the brand is in the same state as you, the GST is split equally into CGST and SGST (9% + 9% at 18%). If it's in another state, it's charged as IGST (18%). You need a GST registration to charge GST; it becomes compulsory once your yearly turnover from services crosses ₹20 lakh (₹10 lakh in some states), and brands often prefer registered creators. For more, read <a href="/influencer-invoice-india">how to invoice brands with GST</a>.</p>
+
+  <h2>Frequently asked questions</h2>
+  <details><summary>What is the GST rate for influencers and content creators in India?</summary>
+    <p>Advertising, promotion and content creation services usually carry 18% GST: 9% CGST plus 9% SGST for a brand in your state, or 18% IGST for a brand in another state.</p></details>
+  <details><summary>When does a creator need GST registration?</summary>
+    <p>Once your yearly turnover from services crosses ₹20 lakh (₹10 lakh in some special category states). You can register earlier if brands ask for a GST invoice.</p></details>
+  <details><summary>How do I remove GST from a total amount?</summary>
+    <p>Divide the total by 1 plus the rate. For 18% GST, ₹29,500 ÷ 1.18 = ₹25,000 before GST, and ₹4,500 is the GST.</p></details>
+
+  <div class="cta">
+    <h2>Invoices that add GST for you</h2>
+    <p>Brandzy turns every brand deal into a GST invoice and tracks when it's paid. 7-day free trial, 0% commission.</p>
+    <a class="btn" href="/app/?signup">Start free trial</a>
+    <a class="btn btn-ghost" href="/pricing">See pricing</a>
+  </div>
+  <h2>More free tools</h2>
+  <div class="more-tools"><a href="/tools/">All free tools</a><a href="/tools/brand-deal-rate-calculator">Brand deal rate calculator</a><a href="/tools/influencer-invoice-generator">Influencer invoice generator</a><a href="/tools/media-kit-maker">Media kit maker</a><a href="/tools/engagement-rate-calculator">Engagement rate calculator</a><a href="/tools/brand-pitch-email-generator">Brand pitch email generator</a><a href="/tools/upi-qr-code-generator">UPI QR code and payment link</a><a href="/tools/instagram-caption-checker">Instagram caption checker</a><a href="/tools/reel-hook-generator">Reel hook generator</a><a href="/tools/cta-builder">Call-to-action builder</a><a href="/tools/hashtag-counter">Hashtag counter and cleaner</a><a href="/tools/instagram-bio-checker">Instagram bio checker</a><a href="/tools/instagram-bio-generator">Instagram bio generator</a><a href="/tools/instagram-grid-planner">Instagram grid planner</a><a href="/tools/reel-size-checker">Reel size and aspect ratio checker</a></div>
+</main>
+
+<!--bz-footer-->
+<footer class="bz-foot">
+  <div class="bz-foot-in">
+    <div class="bz-foot-brand">
+      <a class="bz-logo" href="/"><img src="/assets/logo-mark.png" alt="" />Brandzy</a>
+      <p>Brandzy is the all-in-one creator platform for India: store with UPI checkout, Instagram Auto DM, live media kit, brand deals and invoices behind one link.</p>
+      <div class="bz-badge"><svg width="26" height="26" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="11" fill="#0866ff"/><path d="M7 12.5l3 3 7-7" stroke="#fff" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg><div><b>Approved by Meta</b><span>Built on the official Instagram API</span></div></div>
+      <div class="bz-badge"><svg width="26" height="26" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="11" fill="#34a853"/><path d="M7 12.5l3 3 7-7" stroke="#fff" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg><div><b>Verified by Google</b><span>Built on the official YouTube API</span></div></div>
+      <div class="bz-contact"><a href="mailto:info@brandzy.app">info@brandzy.app</a><br /><a href="tel:+916300967265">+91 63009 67265</a></div>
+    </div>
+    <div class="bz-cols">
+      <div class="bz-col"><h4>Product</h4><a href="/pricing">Pricing</a><a href="/tools/">Free tools</a><a href="/reel-rewards">Reel rewards</a><a href="https://play.google.com/store/apps/details?id=com.brandzy.app&amp;referrer=utm_source%3Dwebsite%26utm_medium%3Dfooter" target="_blank" rel="noopener">Android app</a><a href="/iphone">Brandzy for iPhone</a><a href="/app/">Log in</a></div>
+      <div class="bz-col"><h4>Free tools</h4><a href="/tools/brand-deal-rate-calculator">Brand deal rate calculator</a><a href="/tools/influencer-invoice-generator">Invoice generator (GST)</a><a href="/tools/media-kit-maker">Media kit maker</a><a href="/tools/upi-qr-code-generator">UPI QR code generator</a><a href="/tools/engagement-rate-calculator">Engagement rate calculator</a><a href="/tools/">All free tools</a></div>
+      <div class="bz-col"><h4>Compare</h4><a href="/linktree-alternative">Linktree alternative</a><a href="/stan-store-alternative">Stan Store alternative</a><a href="/linktree-vs-stan-store">Linktree vs Stan Store vs Brandzy</a><a href="/link-in-bio-tools-india">Best link-in-bio tools in India</a></div>
+      <div class="bz-col"><h4>Learn</h4><a href="/influencer-media-kit">How to make a media kit</a><a href="/influencer-invoice-india">How to invoice brands with GST</a><a href="/tools/engagement-rate-calculator">What is a good engagement rate?</a><a href="/tools/brand-deal-rate-calculator">How much to charge for a reel?</a><a href="/tools/instagram-bio-checker">What makes a good Instagram bio?</a></div>
+      <div class="bz-col"><h4>Company</h4><a href="/contact">Contact</a><a href="/reel-rewards#terms">Reel reward terms</a><a href="/privacy">Privacy policy</a><a href="/terms">Terms</a><a href="/refund-policy">Refund and cancellation</a><a href="/shipping-delivery">Shipping and delivery</a><a href="/data-deletion">Data deletion</a><a href="/child-safety">Child safety</a></div>
+    </div>
+  </div>
+  <div class="bz-foot-bottom"><span>© 2026 Brandzy · Tharun Tech Solutions, Hanamkonda, Warangal, Telangana</span><span>Made in India for creators</span></div>
+</footer>
+<!--/bz-footer-->
+</body>
+</html>
