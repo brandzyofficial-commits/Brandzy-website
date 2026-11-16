@@ -100,3 +100,5 @@
 .bz-hero-trust { align-items: center; }
 .bz-hero-trust a.bz-hero-feat { display: inline-flex; }
 .bz-hero-trust a.bz-hero-feat img { height: 44px; width: auto; display: block; }
+/* Keep each badge line on one line (the merged Google and Meta badge used to wrap "APIs"). */
+@media (min-width: 600px) { .bz-badge { max-width: none; } .bz-badge b, .bz-badge span { white-space: nowrap; } }
