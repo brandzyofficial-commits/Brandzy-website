@@ -128,7 +128,9 @@
     }
     function updateButton() {
         if (!wantsFloating) return;
-        var show = !isStandalone() && !dismissed() && (isMobile() || deferredPrompt);
+        // Android phones get the site-wide "Get the app" bar (Play Store) instead of this button.
+        var android = /Android/i.test(navigator.userAgent || '');
+        var show = !android && !isStandalone() && !dismissed() && (isMobile() || deferredPrompt);
         if (show && !fab) {
             fab = document.createElement('button');
             fab.type = 'button';
